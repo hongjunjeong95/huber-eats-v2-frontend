@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
+
+.input {
+  @apply text-lg p-3 border-2 border-gray-200 mb-4 text-center;
+}
+
 @tailwind utilities;

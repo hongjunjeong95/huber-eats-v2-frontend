@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 
-import App from "./App";
-import "./styles/styles.css";
 import { client } from "./apollo";
+import { App } from "./components/app";
+import "./styles/styles.css";
 
 ReactDOM.render(
   <React.StrictMode>
