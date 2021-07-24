@@ -10,9 +10,12 @@ import { ILoginForm } from "../../interfaces";
 import cooGetherLogo from "../../images/logo.png";
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
+import { Button } from "../../components/button";
 
 export const Login = () => {
-  const { register, getValues, handleSubmit } = useForm<ILoginForm>();
+  const { register, getValues, handleSubmit, formState } = useForm<ILoginForm>({
+    mode: "onChange",
+  });
 
   const onCompleted = (data: LoginMutation) => {
     const {
@@ -71,13 +74,15 @@ export const Login = () => {
             {...register("password", {
               required: "Password is required",
             })}
-            type="passsword"
+            type="password"
             placeholder="Passowrd"
             className="input"
           />
-          <button className="bg-lime-600 hover:bg-lime-700 text-white py-4">
-            Login
-          </button>
+          <Button
+            canClick={formState.isValid}
+            loading={loading}
+            actionText="Login"
+          />
         </form>
         <div className="mt-6">
           Are you new?
