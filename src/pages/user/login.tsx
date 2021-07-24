@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "../../services/user.service";
+import { LOGIN_MUTATION, useLoginMutation } from "../../services/user.service";
 import {
   LoginMutation,
   LoginMutationVariables,
@@ -27,13 +27,8 @@ export const Login = () => {
       authTokenVar(token);
     }
   };
-
-  const [loginMutation, { data, error, loading }] = useMutation<
-    LoginMutation,
-    LoginMutationVariables
-  >(LOGIN_MUTATION, {
-    onCompleted,
-  });
+  const [loginMutation, { loading, data, error }] =
+    useLoginMutation(onCompleted);
 
   const onSubmit = () => {
     if (!loading) {
