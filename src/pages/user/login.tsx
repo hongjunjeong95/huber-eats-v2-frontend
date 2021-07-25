@@ -2,13 +2,17 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../../services/user.service";
 import { LoginMutation } from "../../__generated__/LoginMutation";
-import { ILoginForm } from "../../interfaces";
 import cooGetherLogo from "../../images/logo.png";
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import { Link } from "react-router-dom";
+
+interface ILoginForm {
+  email: string;
+  password: string;
+}
 
 export const Login = () => {
   const {

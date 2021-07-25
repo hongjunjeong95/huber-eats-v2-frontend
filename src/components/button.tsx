@@ -1,5 +1,10 @@
 import React from "react";
-import { IButtonProps } from "../interfaces";
+
+interface IButtonProps {
+  canClick: boolean;
+  loading: boolean;
+  actionText: string;
+}
 
 export const Button: React.FC<IButtonProps> = ({
   canClick,

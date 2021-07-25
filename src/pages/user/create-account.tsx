@@ -1,19 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  useCreateAccountMutation,
-  useLoginMutation,
-} from "../../services/user.service";
-import { LoginMutation } from "../../__generated__/LoginMutation";
-import { ICreateAccountForm } from "../../interfaces";
+import { useCreateAccountMutation } from "../../services/user.service";
 import cooGetherLogo from "../../images/logo.png";
-import { authTokenVar, isLoggedInVar } from "../../apollo";
-import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import { Link, useHistory } from "react-router-dom";
 import { CreateAccountMutation } from "../../__generated__/CreateAccountMutation";
 import { UserRole } from "../../__generated__/globalTypes";
+
+interface ICreateAccountForm {
+  email: string;
+  password: string;
+  role: UserRole;
+}
 
 export const CreateAccount = () => {
   const {
