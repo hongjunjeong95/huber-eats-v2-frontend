@@ -1,19 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION, useLoginMutation } from "../../services/user.service";
-import {
-  LoginMutation,
-  LoginMutationVariables,
-} from "../../__generated__/LoginMutation";
+import { useLoginMutation } from "../../services/user.service";
+import { LoginMutation } from "../../__generated__/LoginMutation";
 import { ILoginForm } from "../../interfaces";
 import cooGetherLogo from "../../images/logo.png";
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
 import { Button } from "../../components/button";
+import { FormError } from "../../components/form-error";
 
 export const Login = () => {
-  const { register, getValues, handleSubmit, formState } = useForm<ILoginForm>({
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ILoginForm>({
     mode: "onChange",
   });
 
@@ -27,7 +29,7 @@ export const Login = () => {
       authTokenVar(token);
     }
   };
-  const [loginMutation, { loading, data, error }] =
+  const [loginMutation, { loading, data: loginMutationData }] =
     useLoginMutation(onCompleted);
 
   const onSubmit = () => {
@@ -65,6 +67,12 @@ export const Login = () => {
             placeholder="Email"
             className="input"
           />
+          {errors.email?.type === "pattern" && (
+            <FormError errorMessage="Please enter email" />
+          )}
+          {errors.email?.message && (
+            <FormError errorMessage={errors.email.message} />
+          )}
           <input
             {...register("password", {
               required: "Password is required",
@@ -73,11 +81,13 @@ export const Login = () => {
             placeholder="Passowrd"
             className="input"
           />
-          <Button
-            canClick={formState.isValid}
-            loading={loading}
-            actionText="Login"
-          />
+          {errors.password?.message && (
+            <FormError errorMessage={errors.password.message} />
+          )}
+          <Button canClick={isValid} loading={loading} actionText="Login" />
+          {loginMutationData?.login.error && (
+            <FormError errorMessage={loginMutationData?.login.error} />
+          )}
         </form>
         <div className="mt-6">
           Are you new?
