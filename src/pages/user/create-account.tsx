@@ -1,46 +1,52 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from "../../services/user.service";
+import {
+  useCreateAccountMutation,
+  useLoginMutation,
+} from "../../services/user.service";
 import { LoginMutation } from "../../__generated__/LoginMutation";
-import { ILoginForm } from "../../interfaces";
+import { ICreateAccountForm } from "../../interfaces";
 import cooGetherLogo from "../../images/logo.png";
 import { authTokenVar, isLoggedInVar } from "../../apollo";
 import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { CreateAccountMutation } from "../../__generated__/CreateAccountMutation";
+import { UserRole } from "../../__generated__/globalTypes";
 
-export const Login = () => {
+export const CreateAccount = () => {
   const {
     register,
     getValues,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<ILoginForm>({
+  } = useForm<ICreateAccountForm>({
     mode: "onChange",
   });
+  const history = useHistory();
 
-  const onCompleted = (data: LoginMutation) => {
+  const onCompleted = (data: CreateAccountMutation) => {
     const {
-      login: { ok, token },
+      createAccount: { ok },
     } = data;
-    if (ok && token) {
-      localStorage.setItem(LOCALSTORATE_AUTH_TOKEN, token);
-      isLoggedInVar(true);
-      authTokenVar(token);
+    if (ok) {
+      alert("Your account is created. Please login!");
+      history.push("/");
     }
   };
-  const [loginMutation, { loading, data: loginMutationData }] =
-    useLoginMutation(onCompleted);
+  const [createACcountMutation, { loading, data: createAccountMutationData }] =
+    useCreateAccountMutation(onCompleted);
 
   const onSubmit = () => {
     if (!loading) {
-      const { email, password } = getValues();
-      loginMutation({
+      const { email, password, role } = getValues();
+      createACcountMutation({
         variables: {
-          loginInput: {
+          createAccountInput: {
             email,
             password,
+            role,
           },
         },
       });
@@ -85,15 +91,28 @@ export const Login = () => {
           {errors.password?.message && (
             <FormError errorMessage={errors.password.message} />
           )}
-          <Button canClick={isValid} loading={loading} actionText="Login" />
-          {loginMutationData?.login.error && (
-            <FormError errorMessage={loginMutationData?.login.error} />
+
+          <select {...register("role")} className="input">
+            {Object.keys(UserRole).map((role, index) => (
+              <option key={index}>{role}</option>
+            ))}
+          </select>
+
+          <Button
+            canClick={isValid}
+            loading={loading}
+            actionText="Create Account"
+          />
+          {createAccountMutationData?.createAccount.error && (
+            <FormError
+              errorMessage={createAccountMutationData?.createAccount.error}
+            />
           )}
         </form>
         <div className="mt-6">
-          Are you new?
-          <Link to="/create-account" className="ml-2 text-lime-500">
-            Create Account
+          You have already account?
+          <Link to="/" className="ml-2 text-lime-500">
+            Sign In
           </Link>
         </div>
       </div>
