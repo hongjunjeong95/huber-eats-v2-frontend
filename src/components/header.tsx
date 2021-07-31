@@ -15,7 +15,7 @@ export const Header = () => {
   };
   return (
     <header className="w-full fixed py-4 flex">
-      <div className="max-w-screen-xl flex justify-between w-full">
+      <div className="mx-auto max-w-screen-xl flex justify-between w-full">
         <Link to="/">
           <img src={cooGetherLogo} alt="Logo" className="w-28" />
         </Link>

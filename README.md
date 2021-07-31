@@ -3,5 +3,8 @@
 1. header
 2. XSS
 3. CSRF
-4. My Restaurants - owner
-5. My Restaurant - owner
+
+# todo
+
+1. My Restaurants - owner
+2. My Restaurant - owner
