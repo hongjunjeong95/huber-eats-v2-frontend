@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
-import { MyRestaurants } from "../pages/owner/my-restaurants";
+import AddRestaurant from "../pages/owner/add-restaurant";
+import MyRestaurants from "../pages/owner/my-restaurants";
 
 export const LoggedInRouter = () => {
   return (
@@ -11,6 +12,9 @@ export const LoggedInRouter = () => {
         <Switch>
           <Route path="/" exact>
             <MyRestaurants />
+          </Route>
+          <Route path="/add-restaurant" exact>
+            <AddRestaurant />
           </Route>
         </Switch>
       </Wrapper>

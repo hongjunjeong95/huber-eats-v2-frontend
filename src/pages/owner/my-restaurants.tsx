@@ -1,15 +1,16 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/header";
 import { useGetMyRestaurants } from "../../services/restaurant.service";
 
-export const MyRestaurants = () => {
+const MyRestaurants = memo(() => {
   const { data, loading } = useGetMyRestaurants();
   return (
     <div className="max-w-screen-xl w-full mx-auto mt-32">
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-4xl font-medium">My Retaurants</h2>
         <Link
-          to="/"
+          to="/add-restaurant"
           className="font-medium bg-green-400 rounded-lg py-2 px-4 text-white shadow-inner"
         >
           Add restaurant
@@ -33,4 +34,6 @@ export const MyRestaurants = () => {
       )}
     </div>
   );
-};
+});
+
+export default MyRestaurants;
