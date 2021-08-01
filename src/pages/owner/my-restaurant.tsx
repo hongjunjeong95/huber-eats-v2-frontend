@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
 const MyRestaurant = memo(() => {
@@ -20,7 +20,11 @@ const MyRestaurant = memo(() => {
             {data?.findMyRestaurantById.restaurant?.name || "Loading..."}
           </h2>
           <div className="mb-10">
-            <button className="button">Add a dish</button>
+            <button className="button bg-green-400">
+              <Link to={`/add-menu?restaurantId=${restaurantId}`}>
+                Add a dish
+              </Link>
+            </button>
           </div>
           <div className="grid grid-cols-3 gap-x-5 gap-y-10">
             {data?.findMyRestaurantById.restaurant?.menu?.map((dish) => (

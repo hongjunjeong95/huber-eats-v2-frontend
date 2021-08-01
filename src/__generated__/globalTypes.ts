@@ -19,6 +19,14 @@ export interface CreateAccountInput {
   role: UserRole;
 }
 
+export interface CreateDishInput {
+  name: string;
+  price: number;
+  photo: string;
+  description: string;
+  restaurantId: number;
+}
+
 export interface CreateRestaurantInput {
   name: string;
   coverImg: string;
