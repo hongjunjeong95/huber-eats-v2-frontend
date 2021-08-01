@@ -14,6 +14,27 @@ export interface FindMyRestaurantById_findMyRestaurantById_restaurant_category {
   name: string;
 }
 
+export interface FindMyRestaurantById_findMyRestaurantById_restaurant_menu_options_choices {
+  __typename: "DishChoice";
+  name: string;
+  extra: number | null;
+}
+
+export interface FindMyRestaurantById_findMyRestaurantById_restaurant_menu_options {
+  __typename: "DishOption";
+  name: string;
+  choices: FindMyRestaurantById_findMyRestaurantById_restaurant_menu_options_choices[] | null;
+}
+
+export interface FindMyRestaurantById_findMyRestaurantById_restaurant_menu {
+  __typename: "Dish";
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  options: FindMyRestaurantById_findMyRestaurantById_restaurant_menu_options[] | null;
+}
+
 export interface FindMyRestaurantById_findMyRestaurantById_restaurant {
   __typename: "Restaurant";
   id: number;
@@ -21,6 +42,7 @@ export interface FindMyRestaurantById_findMyRestaurantById_restaurant {
   coverImg: string;
   address: string;
   category: FindMyRestaurantById_findMyRestaurantById_restaurant_category;
+  menu: FindMyRestaurantById_findMyRestaurantById_restaurant_menu[] | null;
 }
 
 export interface FindMyRestaurantById_findMyRestaurantById {

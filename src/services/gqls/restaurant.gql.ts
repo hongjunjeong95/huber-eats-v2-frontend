@@ -1,3 +1,4 @@
+import { DISH_FRAGMENT } from "./../fragments";
 import { gql } from "@apollo/client";
 import { RESTAURANT_FRAGMENT } from "../fragments";
 
@@ -26,12 +27,16 @@ export const CREATE_RESTAURANT_MUTATION = gql`
 
 export const FIND_MY_RESTAURANT = gql`
   ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
   query FindMyRestaurantById($input: FindMyRestaurantByIdInput!) {
     findMyRestaurantById(input: $input) {
       ok
       error
       restaurant {
         ...RestaurantFragment
+        menu {
+          ...DishFragment
+        }
       }
     }
   }

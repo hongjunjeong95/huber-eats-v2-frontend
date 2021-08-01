@@ -28,11 +28,17 @@ export const useCreateRestaurantMutation = (
   );
 
 export const useFindMyRestaurantById = (
+  id: number,
   onCompleted?: (data: FindMyRestaurantById) => void
 ) =>
-  useMutation<FindMyRestaurantById, FindMyRestaurantByIdVariables>(
+  useQuery<FindMyRestaurantById, FindMyRestaurantByIdVariables>(
     FIND_MY_RESTAURANT,
     {
+      variables: {
+        input: {
+          id,
+        },
+      },
       onCompleted,
     }
   );

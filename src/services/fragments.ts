@@ -11,3 +11,19 @@ export const RESTAURANT_FRAGMENT = gql`
     }
   }
 `;
+
+export const DISH_FRAGMENT = gql`
+  fragment DishFragment on Dish {
+    id
+    name
+    description
+    price
+    options {
+      name
+      choices {
+        name
+        extra
+      }
+    }
+  }
+`;
