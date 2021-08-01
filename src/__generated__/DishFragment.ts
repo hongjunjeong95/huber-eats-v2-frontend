@@ -25,5 +25,6 @@ export interface DishFragment {
   name: string;
   description: string;
   price: number;
+  photo: string;
   options: DishFragment_options[] | null;
 }

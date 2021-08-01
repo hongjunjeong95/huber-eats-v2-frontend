@@ -32,6 +32,7 @@ export interface FindMyRestaurantById_findMyRestaurantById_restaurant_menu {
   name: string;
   description: string;
   price: number;
+  photo: string;
   options: FindMyRestaurantById_findMyRestaurantById_restaurant_menu_options[] | null;
 }
 

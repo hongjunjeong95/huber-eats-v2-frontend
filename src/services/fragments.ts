@@ -18,6 +18,7 @@ export const DISH_FRAGMENT = gql`
     name
     description
     price
+    photo
     options {
       name
       choices {

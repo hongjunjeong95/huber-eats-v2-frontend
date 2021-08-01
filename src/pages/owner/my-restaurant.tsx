@@ -26,15 +26,15 @@ const MyRestaurant = memo(() => {
               </Link>
             </button>
           </div>
-          <div className="grid grid-cols-3 gap-x-5 gap-y-10">
+          <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
             {data?.findMyRestaurantById.restaurant?.menu?.map((dish) => (
-              <div
-                key={Date.now()}
-                className="flex flex-col border-2 px-10 py-3"
-              >
-                <h3 className="font-medium text-lg">{dish.name}</h3>
-                <span className="">{dish.description}</span>
-                <span className="mt-6">\{dish.price}</span>
+              <div key={Date.now()} className="">
+                <img src={dish.photo} alt="" />
+                <div className="flex flex-col px-10 py-3 border-2">
+                  <h3 className="font-medium text-lg">{dish.name}</h3>
+                  <span className="">{dish.description}</span>
+                  <span className="mt-6">\{dish.price}</span>
+                </div>
               </div>
             ))}
           </div>
