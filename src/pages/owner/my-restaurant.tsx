@@ -4,10 +4,8 @@ import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
 const MyRestaurant = memo(() => {
   const location = useLocation();
-  const [, restaurantId] = location.search.split("?restaurantId=");
-
-  const { data, loading } = useFindMyRestaurantById(+restaurantId);
-  console.log(data);
+  const [_, restaurantId] = location.search.split("?restaurantId=");
+  const { data } = useFindMyRestaurantById(+restaurantId);
   return (
     <div>
       <div
@@ -21,6 +19,9 @@ const MyRestaurant = memo(() => {
           <h2 className="text-4xl font-medium mb-10">
             {data?.findMyRestaurantById.restaurant?.name || "Loading..."}
           </h2>
+          <div className="mb-10">
+            <button className="button">Add a dish</button>
+          </div>
           <div className="grid grid-cols-3 gap-x-5 gap-y-10">
             {data?.findMyRestaurantById.restaurant?.menu?.map((dish) => (
               <div

@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.21",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.9",
+    "@babel/register": "^7.14.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -17,7 +20,13 @@
     "@types/react-router-dom": "^5.1.8",
     "apollo": "^2.33.4",
     "autoprefixer": "^10.3.1",
+    "del": "^6.0.0",
     "graphql": "^15.5.1",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^5.0.0",
+    "node-sass": "^6.0.1",
     "postcss": "^8.3.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -30,9 +39,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "tailwind:build": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+    "gulp:dev": "gulp dev",
+    "gulp:build": "gulp build",
+    "tailwind:build": "npx tailwindcss -i ./src/assets/styles.scss -o ./src/styles/styles.css",
     "apollo:codegen": "rimraf src/__generated__ && apollo client:codegen src/__generated__ --target=typescript --outputFlat",
-    "start": "npm run apollo:codegen & npm run tailwind:build & react-scripts start",
+    "start": "npm run apollo:codegen & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
