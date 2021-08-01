@@ -23,3 +23,16 @@ export const CREATE_RESTAURANT_MUTATION = gql`
     }
   }
 `;
+
+export const FIND_MY_RESTAURANT = gql`
+  ${RESTAURANT_FRAGMENT}
+  query FindMyRestaurantById($input: FindMyRestaurantByIdInput!) {
+    findMyRestaurantById(input: $input) {
+      ok
+      error
+      restaurant {
+        ...RestaurantFragment
+      }
+    }
+  }
+`;

@@ -26,6 +26,10 @@ export interface CreateRestaurantInput {
   categoryName: string;
 }
 
+export interface FindMyRestaurantByIdInput {
+  id: number;
+}
+
 export interface LoginInput {
   email: string;
   password: string;
