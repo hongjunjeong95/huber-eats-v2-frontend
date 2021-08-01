@@ -18,7 +18,10 @@ const MyRestaurants = memo(() => {
       </div>
       {data?.getMyRestaurants.ok &&
       data.getMyRestaurants.restaurants.length === 0 ? (
-        <h4>There is no restaurants</h4>
+        <div>
+          <h4>There is no restaurants</h4>
+          <span>Please add restaurants</span>
+        </div>
       ) : (
         <div className="grid grid-cols-3">
           {data?.getMyRestaurants.restaurants.map((restaurant) => (
