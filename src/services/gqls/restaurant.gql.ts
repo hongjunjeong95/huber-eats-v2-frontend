@@ -13,3 +13,13 @@ export const GET_MY_RESTAURANTS = gql`
     }
   }
 `;
+
+export const CREATE_RESTAURANT_MUTATION = gql`
+  mutation CreateRestaurant($input: CreateRestaurantInput!) {
+    createRestaurant(input: $input) {
+      ok
+      error
+      restaurantId
+    }
+  }
+`;

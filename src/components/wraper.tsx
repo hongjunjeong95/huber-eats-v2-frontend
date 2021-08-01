@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 
 const Wrapper: React.FC = ({ children }) => {
   return <div className="pt-40">{children}</div>;

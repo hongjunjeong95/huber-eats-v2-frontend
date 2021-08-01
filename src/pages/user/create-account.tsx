@@ -42,7 +42,7 @@ export const CreateAccount = () => {
       const { email, password, role } = getValues();
       createACcountMutation({
         variables: {
-          createAccountInput: {
+          input: {
             email,
             password,
             role,

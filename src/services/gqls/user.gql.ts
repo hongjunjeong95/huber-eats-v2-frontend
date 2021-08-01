@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN_MUTATION = gql`
-  mutation LoginMutation($loginInput: LoginInput!) {
-    login(input: $loginInput) {
+  mutation LoginMutation($input: LoginInput!) {
+    login(input: $input) {
       ok
       error
       token
@@ -11,8 +11,8 @@ export const LOGIN_MUTATION = gql`
 `;
 
 export const CREATE_ACCOUNT_MUTATION = gql`
-  mutation CreateAccountMutation($createAccountInput: CreateAccountInput!) {
-    createAccount(input: $createAccountInput) {
+  mutation CreateAccountMutation($input: CreateAccountInput!) {
+    createAccount(input: $input) {
       ok
       error
     }
