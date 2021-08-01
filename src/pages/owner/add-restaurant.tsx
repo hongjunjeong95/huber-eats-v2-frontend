@@ -66,15 +66,13 @@ const AddRestaurant = memo(() => {
 
   const [createRestaurantMutation, { data, loading, error }] =
     useCreateRestaurantMutation(onCompleted);
-  const onsubmit = async () => {
+  const onSubmit = async () => {
     try {
       setUploading(true);
       const { name, address, categoryName, file } = getValues();
       const actualFile = file[0];
       const formBody = new FormData();
-
       formBody.append("file", actualFile);
-
       const { url: coverImg } = await (
         await fetch("http://localhost:4000/uploads/", {
           method: "POST",
@@ -102,7 +100,7 @@ const AddRestaurant = memo(() => {
     <div className="w-full flex justify-center">
       <div className="shadow-2xl border w-1/3 py-10 flex max-h-screen flex-col justify-center items-center">
         <h4 className="font-semibold text-2xl mb-4">Add Restaurant</h4>
-        <form onSubmit={handleSubmit(onsubmit)} className="flex flex-col w-3/4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-3/4">
           <input
             {...register("name", {
               required: "Restaurant name is required",

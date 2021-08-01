@@ -1,12 +1,12 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { Header } from "../../components/header";
+import Restaurant from "../../components/restaurant";
 import { useGetMyRestaurants } from "../../services/restaurant.service";
 
 const MyRestaurants = memo(() => {
   const { data, loading } = useGetMyRestaurants();
   return (
-    <div className="max-w-screen-xl w-full mx-auto mt-32">
+    <div className="max-w-screen-xl w-full mx-auto mt-32 mb-40 min-h-screen">
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-4xl font-medium">My Retaurants</h2>
         <Link
@@ -16,24 +16,32 @@ const MyRestaurants = memo(() => {
           Add restaurant
         </Link>
       </div>
-      {data?.getMyRestaurants.ok &&
-      data.getMyRestaurants.restaurants.length === 0 ? (
-        <div>
-          <h4>There is no restaurants</h4>
-          <span>Please add restaurants</span>
-        </div>
+      {loading ? (
+        "Loading..."
       ) : (
-        <div className="grid grid-cols-3">
-          {data?.getMyRestaurants.restaurants.map((restaurant) => (
-            <div key={Date.now()} className="flex flex-col">
-              <img src={restaurant.coverImg} alt="" />
-              <h3 className="text-xl">{restaurant.name}</h3>
-              <span className="border-t mt-2 py-2 text-xs opacity-50 border-gray-400">
-                {restaurant.category.name}
+        <>
+          {data?.getMyRestaurants.ok &&
+          data.getMyRestaurants.restaurants.length === 0 ? (
+            <div className="flex flex-col">
+              <span className="text-lg font-medium mb-4">
+                There is no restaurants
               </span>
+              <span className="font-me">Please add restaurants</span>
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+              {data?.getMyRestaurants.restaurants.map((restaurant) => (
+                <Restaurant
+                  key={Date.now()}
+                  name={restaurant.name}
+                  addresss={restaurant.address}
+                  categoryName={restaurant.category.name}
+                  coverImg={restaurant.coverImg}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

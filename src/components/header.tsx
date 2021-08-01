@@ -14,7 +14,7 @@ export const Header = () => {
     history.push("/");
   };
   return (
-    <header className="w-full fixed py-4 flex">
+    <header className="w-full fixed py-4 flex bg-white">
       <div className="mx-auto max-w-screen-xl flex justify-between w-full">
         <Link to="/">
           <img src={cooGetherLogo} alt="Logo" className="w-28" />
