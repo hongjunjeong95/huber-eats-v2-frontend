@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Dish from "../../components/dish";
 import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
 const MyRestaurant = memo(() => {
@@ -28,14 +29,13 @@ const MyRestaurant = memo(() => {
           </div>
           <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
             {data?.findMyRestaurantById.restaurant?.menu?.map((dish) => (
-              <div key={Date.now()} className="">
-                <img src={dish.photo} alt="" />
-                <div className="flex flex-col px-10 py-3 border-2">
-                  <h3 className="font-medium text-lg">{dish.name}</h3>
-                  <span className="">{dish.description}</span>
-                  <span className="mt-6">\{dish.price}</span>
-                </div>
-              </div>
+              <Dish
+                key={Date.now()}
+                name={dish.name}
+                description={dish.description}
+                price={dish.price}
+                photo={dish.photo}
+              />
             ))}
           </div>
         </div>
