@@ -2,7 +2,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
 import AddRestaurant from "../pages/owner/add-restaurant";
+import MyRestaurant from "../pages/owner/my-restaurant";
 import MyRestaurants from "../pages/owner/my-restaurants";
+
+const ownerRoutes = [
+  { path: "/", component: <MyRestaurants /> },
+  { path: "/add-restaurant", component: <AddRestaurant /> },
+  { path: "/myRestaurant", component: <MyRestaurant /> },
+];
 
 export const LoggedInRouter = () => {
   return (
@@ -10,12 +17,11 @@ export const LoggedInRouter = () => {
       <Header />
       <Wrapper>
         <Switch>
-          <Route path="/" exact>
-            <MyRestaurants />
-          </Route>
-          <Route path="/add-restaurant" exact>
-            <AddRestaurant />
-          </Route>
+          {ownerRoutes.map((ownerRoute) => (
+            <Route key={ownerRoute.path} path={ownerRoute.path} exact>
+              {ownerRoute.component}
+            </Route>
+          ))}
         </Switch>
       </Wrapper>
     </Router>

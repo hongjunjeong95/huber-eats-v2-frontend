@@ -33,6 +33,7 @@ const MyRestaurants = memo(() => {
               {data?.getMyRestaurants.restaurants.map((restaurant) => (
                 <Restaurant
                   key={Date.now()}
+                  id={restaurant.id}
                   name={restaurant.name}
                   addresss={restaurant.address}
                   categoryName={restaurant.category.name}
