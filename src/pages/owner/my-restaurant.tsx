@@ -35,6 +35,8 @@ const MyRestaurant = memo(() => {
                 description={dish.description}
                 price={dish.price}
                 photo={dish.photo}
+                restaurantId={restaurantId}
+                dishId={dish.id + ""}
               />
             ))}
           </div>

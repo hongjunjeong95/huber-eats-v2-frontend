@@ -3,6 +3,7 @@ import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
 import AddMenu from "../pages/owner/add-menu";
 import AddRestaurant from "../pages/owner/add-restaurant";
+import EditMenu from "../pages/owner/edit-menu";
 import MyRestaurant from "../pages/owner/my-restaurant";
 import MyRestaurants from "../pages/owner/my-restaurants";
 
@@ -11,6 +12,7 @@ const ownerRoutes = [
   { path: "/add-restaurant", component: <AddRestaurant /> },
   { path: "/myRestaurant", component: <MyRestaurant /> },
   { path: "/add-menu", component: <AddMenu /> },
+  { path: "/edit-menu", component: <EditMenu /> },
 ];
 
 export const LoggedInRouter = () => {

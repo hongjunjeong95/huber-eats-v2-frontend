@@ -103,7 +103,7 @@ const AddMenu = memo(() => {
           />
           <textarea
             {...register("description")}
-            className="input resize-none"
+            className="textarea"
             placeholder="Menu Description"
             rows={5}
           />
@@ -124,33 +124,5 @@ const AddMenu = memo(() => {
     </div>
   );
 });
-
-const obj = {
-  errors: [
-    {
-      message:
-        'Variable "$input" got invalid value "7500" at "input.price"; Int cannot represent non-integer value: "7500"',
-      locations: [{ line: 1, column: 21 }],
-      extensions: {
-        code: "BAD_USER_INPUT",
-        exception: {
-          stacktrace: [
-            'GraphQLError: Variable "$input" got invalid value "7500" at "input.price"; Int cannot represent non-integer value: "7500"',
-            "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-            "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:131:9)",
-            "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-            "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:105:34)",
-            "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-            "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-            "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-            "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-            "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-            "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-          ],
-        },
-      },
-    },
-  ],
-};
 
 export default AddMenu;

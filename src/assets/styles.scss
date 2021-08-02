@@ -5,6 +5,10 @@
   @apply text-lg p-3 border-2 border-gray-200 mb-4 text-center;
 }
 
+.textarea {
+  @apply text-lg p-3 border-2 border-gray-200 mb-4 resize-none;
+}
+
 .button {
   box-shadow: inset -2px -8px 20px -16px rgba(30, 30, 30, 0.9);
   @apply border rounded-lg py-2 px-4 text-white;

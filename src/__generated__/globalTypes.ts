@@ -34,6 +34,11 @@ export interface CreateRestaurantInput {
   categoryName: string;
 }
 
+export interface FindDishInput {
+  id: number;
+  restaurantId: number;
+}
+
 export interface FindMyRestaurantByIdInput {
   id: number;
 }
@@ -41,6 +46,15 @@ export interface FindMyRestaurantByIdInput {
 export interface LoginInput {
   email: string;
   password: string;
+}
+
+export interface UpdateDishInput {
+  id?: number | null;
+  name?: string | null;
+  price?: number | null;
+  photo?: string | null;
+  description?: string | null;
+  restaurantId: number;
 }
 
 //==============================================================
