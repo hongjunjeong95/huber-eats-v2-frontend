@@ -53,7 +53,7 @@ export const CreateAccount = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center w-full">
+    <div className="min-h-screen flex items-center justify-center w-full">
       <div className="w-full max-w-screen-sm flex flex-col items-center justify-center px-5">
         <img src={cooGetherLogo} alt="Coogether Logo" className="w-64 mb-10" />
         <h1 className="w-full text-3xl font-medium mb-12 text-left">

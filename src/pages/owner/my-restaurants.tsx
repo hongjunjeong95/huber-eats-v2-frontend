@@ -9,10 +9,7 @@ const MyRestaurants = memo(() => {
     <div className="max-w-screen-xl w-full mx-auto mt-32 mb-40 min-h-screen">
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-4xl font-medium">My Retaurants</h2>
-        <Link
-          to="/add-restaurant"
-          className="font-medium bg-green-400 rounded-lg py-2 px-4 text-white shadow-inner"
-        >
+        <Link to="/add-restaurant" className="button bg-green-400">
           Add restaurant
         </Link>
       </div>
@@ -29,7 +26,7 @@ const MyRestaurants = memo(() => {
               <span className="font-me">Please add restaurants</span>
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+            <div className="grid md:grid-cols-3 gap-x-6 gap-y-10">
               {data?.getMyRestaurants.restaurants.map((restaurant) => (
                 <Restaurant
                   key={Date.now()}

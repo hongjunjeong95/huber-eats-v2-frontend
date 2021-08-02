@@ -16,7 +16,7 @@ const MyRestaurant = memo(() => {
         className="bg-gray-500 h-80 w-full bg-cover bg-center bg-no-repeat"
       ></div>
       <div className="max-w-screen-xl w-full mx-auto mt-10 mb-40 min-h-screen">
-        <div className="flex flex-col mb-10">
+        <div className="flex flex-col mb-10 mx-6 xl:mx-0">
           <h2 className="text-4xl font-medium mb-10">
             {data?.findMyRestaurantById.restaurant?.name || "Loading..."}
           </h2>
