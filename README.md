@@ -6,7 +6,13 @@
 
 # todo
 
-1. add dish
-2. Show a image of dish on my-restaurant
-3. edit dish
-4. delete dish
+1. delete dish
+2. dish option
+3. dish choices
+4. edit restaurant
+5. delete restaurant
+6. user profile
+7. edit user
+8. change user password
+9. Set strong password security
+10. Client pages

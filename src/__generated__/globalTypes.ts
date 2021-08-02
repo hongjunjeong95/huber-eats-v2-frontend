@@ -34,6 +34,11 @@ export interface CreateRestaurantInput {
   categoryName: string;
 }
 
+export interface DeleteDishInput {
+  id: number;
+  restaurantId: number;
+}
+
 export interface FindDishInput {
   id: number;
   restaurantId: number;
