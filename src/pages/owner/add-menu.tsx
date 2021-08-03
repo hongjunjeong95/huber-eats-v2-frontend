@@ -22,7 +22,7 @@ const AddMenu = memo(() => {
   const [uploading, setUploading] = useState<boolean>(false);
   const history = useHistory();
   const location = useLocation();
-  const [_, restaurantId] = location.search.split("?restaurantId=");
+  const [, restaurantId] = location.search.split("?restaurantId=");
 
   const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
 
@@ -30,16 +30,12 @@ const AddMenu = memo(() => {
     register,
     getValues,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid, errors: formErrors },
   } = useForm<IFormProps>({
     mode: "onChange",
   });
 
-  const onCompleted = (data: CreateDish) => {
-    history.push(`myRestaurant?restaurantId=${restaurantId}`);
-  };
-
-  const [createDishMutation, { data }] = useCreateDishMutation(onCompleted);
+  const [createDishMutation, { data }] = useCreateDishMutation();
   const onSubmit = async () => {
     try {
       setUploading(true);
@@ -78,6 +74,7 @@ const AddMenu = memo(() => {
     } catch (e) {
       console.error(e);
     }
+    history.push(`myRestaurant?restaurantId=${restaurantId}`);
   };
 
   const addOptionBtn = () => {
@@ -100,6 +97,9 @@ const AddMenu = memo(() => {
             type="text"
             placeholder="Menu Name"
           />
+          {formErrors.name?.message && (
+            <FormError errorMessage={formErrors.name.message} />
+          )}
           <input
             {...register("price", {
               required: "Menu price is required",
@@ -109,13 +109,22 @@ const AddMenu = memo(() => {
             type="number"
             placeholder="Menu Price"
           />
+          {formErrors.price?.message && (
+            <FormError errorMessage={formErrors.price.message} />
+          )}
           <textarea
             {...register("description")}
             className="textarea"
             placeholder="Menu Description"
             rows={5}
           />
+          {formErrors.description?.message && (
+            <FormError errorMessage={formErrors.description.message} />
+          )}
           <input {...register("file")} className="input" type="file" />
+          {formErrors.file?.message && (
+            <FormError errorMessage={formErrors.file.message} />
+          )}
           <div>
             <div className="flex justify-between mb-4">
               <h3 className="font-bold text-lg">Dish Option</h3>

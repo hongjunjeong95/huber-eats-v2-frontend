@@ -24,7 +24,7 @@ const EditMenu = memo(() => {
   const [uploading, setUploading] = useState<boolean>(false);
   const history = useHistory();
   const location = useLocation();
-  const [_, queryParams] = location.search.split("?restaurantId=");
+  const [, queryParams] = location.search.split("?restaurantId=");
   let [restaurantId, dishId] = queryParams.split("&dishId=");
 
   const {

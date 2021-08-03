@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { client } from "../apollo";
@@ -23,7 +23,7 @@ interface IFormProps {
   file: FileList;
 }
 
-const DishForm: React.FC<IDishForm> = memo(
+const RestaurantEditForm: React.FC<IDishForm> = memo(
   ({ formName, formAddress, formCategoryName, formCoverImg, restaurantId }) => {
     const [name, setName] = useState<string>(formName);
     const [address, setAddress] = useState<string>(formAddress);
@@ -75,9 +75,6 @@ const DishForm: React.FC<IDishForm> = memo(
           query: FIND_MY_RESTAURANT,
           variables: { input: { id: +restaurantId } },
         });
-
-        console.log("QueryResult");
-        console.log(queryResult);
 
         client.writeQuery({
           query: FIND_MY_RESTAURANT,
@@ -200,7 +197,7 @@ const DishForm: React.FC<IDishForm> = memo(
         <Button
           canClick={isValid}
           actionText="Edit Restaurant"
-          loading={uploading}
+          loading={uploading || loading}
         />
         {data?.editRestaurant.error && (
           <FormError errorMessage={data.editRestaurant.error} />
@@ -210,4 +207,4 @@ const DishForm: React.FC<IDishForm> = memo(
   }
 );
 
-export default DishForm;
+export default RestaurantEditForm;

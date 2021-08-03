@@ -14,7 +14,9 @@ const MyRestaurants = memo(() => {
         </Link>
       </div>
       {loading ? (
-        "Loading..."
+        <div className="flex items-center justify-center font-bold text-center text-3xl">
+          "Loading..."
+        </div>
       ) : (
         <>
           {data?.getMyRestaurants.ok &&

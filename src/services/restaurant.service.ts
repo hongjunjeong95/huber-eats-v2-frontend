@@ -19,6 +19,8 @@ import {
   GET_MY_RESTAURANTS,
 } from "./gqls/restaurant.gql";
 
+export class RestaurantService {}
+
 export const useGetMyRestaurants = () =>
   useQuery<GetMyRestaurants>(GET_MY_RESTAURANTS);
 

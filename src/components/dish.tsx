@@ -13,8 +13,7 @@ interface IDishProps {
 
 const Dish: React.FC<IDishProps> = memo(
   ({ name, description, photo, price, restaurantId, dishId }) => {
-    const [deleteDishMutation, { data, loading, error }] =
-      useDeleteDishMutation();
+    const [deleteDishMutation, { data, loading }] = useDeleteDishMutation();
     const onClickDelete = () => {
       deleteDishMutation({
         variables: {

@@ -5,7 +5,7 @@ import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
 const MyRestaurant = memo(() => {
   const location = useLocation();
-  const [_, restaurantId] = location.search.split("?restaurantId=");
+  const [, restaurantId] = location.search.split("?restaurantId=");
   const { data } = useFindMyRestaurantById(+restaurantId);
   return (
     <div>

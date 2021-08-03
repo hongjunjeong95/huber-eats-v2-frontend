@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
-import DishForm from "../../components/dishForm";
+import RestaurantEditForm from "../../components/restaurantEditForm";
 import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
 const UpdateRestaurant = memo(() => {
   const location = useLocation();
-  const [_, restaurantId] = location.search.split("?restaurantId=");
+  const [, restaurantId] = location.search.split("?restaurantId=");
   const { data: restaurantData, loading } = useFindMyRestaurantById(
     +restaurantId
   );
@@ -24,7 +24,7 @@ const UpdateRestaurant = memo(() => {
         {loading ? (
           "Loading..."
         ) : (
-          <DishForm
+          <RestaurantEditForm
             formName={
               restaurantData?.findMyRestaurantById.restaurant?.name
                 ? restaurantData?.findMyRestaurantById.restaurant?.name
