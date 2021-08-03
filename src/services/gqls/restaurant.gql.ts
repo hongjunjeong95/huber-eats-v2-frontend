@@ -15,16 +15,6 @@ export const GET_MY_RESTAURANTS = gql`
   }
 `;
 
-export const CREATE_RESTAURANT_MUTATION = gql`
-  mutation CreateRestaurant($input: CreateRestaurantInput!) {
-    createRestaurant(input: $input) {
-      ok
-      error
-      restaurantId
-    }
-  }
-`;
-
 export const FIND_MY_RESTAURANT = gql`
   ${RESTAURANT_FRAGMENT}
   ${DISH_FRAGMENT}
@@ -37,6 +27,29 @@ export const FIND_MY_RESTAURANT = gql`
         menu {
           ...DishFragment
         }
+      }
+    }
+  }
+`;
+
+export const CREATE_RESTAURANT_MUTATION = gql`
+  mutation CreateRestaurant($input: CreateRestaurantInput!) {
+    createRestaurant(input: $input) {
+      ok
+      error
+      restaurantId
+    }
+  }
+`;
+
+export const EDIT_RESTAURANT_MUTATION = gql`
+  ${RESTAURANT_FRAGMENT}
+  mutation EditRestaurant($input: EditRestaurantInput!) {
+    editRestaurant(input: $input) {
+      ok
+      error
+      restaurant {
+        ...RestaurantFragment
       }
     }
   }

@@ -50,6 +50,14 @@ export interface DishOptionInputType {
   choices?: DishChoiceInputType[] | null;
 }
 
+export interface EditRestaurantInput {
+  name?: string | null;
+  coverImg?: string | null;
+  address?: string | null;
+  categoryName?: string | null;
+  restaurantId: number;
+}
+
 export interface FindDishInput {
   id: number;
   restaurantId: number;

@@ -28,7 +28,9 @@ const MyRestaurant = memo(() => {
             </button>
             <div>
               <button className="button mr-4 bg-yellow-500">
-                <Link to="/">Edit Restaurant</Link>
+                <Link to={`/edit-restaurant?restaurantId=${restaurantId}`}>
+                  Edit Restaurant
+                </Link>
               </button>
               <button className="button bg-red-500">
                 <Link to="/">Delete Restaurant</Link>
