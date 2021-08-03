@@ -4,6 +4,10 @@ import {
   CreateRestaurantVariables,
 } from "../__generated__/CreateRestaurant";
 import {
+  DeleteRestaurant,
+  DeleteRestaurantVariables,
+} from "../__generated__/DeleteRestaurant";
+import {
   EditRestaurant,
   EditRestaurantVariables,
 } from "../__generated__/EditRestaurant";
@@ -14,6 +18,7 @@ import {
 import { GetMyRestaurants } from "../__generated__/GetMyRestaurants";
 import {
   CREATE_RESTAURANT_MUTATION,
+  DELETE_RESTAURANT_MUTATION,
   EDIT_RESTAURANT_MUTATION,
   FIND_MY_RESTAURANT,
   GET_MY_RESTAURANTS,
@@ -55,6 +60,16 @@ export const useEditRestaurantMutation = (
 ) =>
   useMutation<EditRestaurant, EditRestaurantVariables>(
     EDIT_RESTAURANT_MUTATION,
+    {
+      onCompleted,
+    }
+  );
+
+export const useDeleteRestaurantMutation = (
+  onCompleted?: (data: DeleteRestaurant) => void
+) =>
+  useMutation<DeleteRestaurant, DeleteRestaurantVariables>(
+    DELETE_RESTAURANT_MUTATION,
     {
       onCompleted,
     }

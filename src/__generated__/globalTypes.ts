@@ -40,6 +40,10 @@ export interface DeleteDishInput {
   restaurantId: number;
 }
 
+export interface DeleteRestaurantInput {
+  id: number;
+}
+
 export interface DishChoiceInputType {
   name: string;
   extra?: number | null;

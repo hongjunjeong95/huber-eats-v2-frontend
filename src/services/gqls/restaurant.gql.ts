@@ -54,3 +54,12 @@ export const EDIT_RESTAURANT_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_RESTAURANT_MUTATION = gql`
+  mutation DeleteRestaurant($input: DeleteRestaurantInput!) {
+    deleteRestaurant(input: $input) {
+      ok
+      error
+    }
+  }
+`;
