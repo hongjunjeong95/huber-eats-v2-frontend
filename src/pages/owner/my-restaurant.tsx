@@ -20,12 +20,20 @@ const MyRestaurant = memo(() => {
           <h2 className="text-4xl font-medium mb-10">
             {data?.findMyRestaurantById.restaurant?.name || "Loading..."}
           </h2>
-          <div className="mb-10">
+          <div className="mb-10 flex justify-between">
             <button className="button bg-green-400">
               <Link to={`/add-menu?restaurantId=${restaurantId}`}>
                 Add a dish
               </Link>
             </button>
+            <div>
+              <button className="button mr-4 bg-yellow-500">
+                <Link to="/">Edit Restaurant</Link>
+              </button>
+              <button className="button bg-red-500">
+                <Link to="/">Delete Restaurant</Link>
+              </button>
+            </div>
           </div>
           <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
             {data?.findMyRestaurantById.restaurant?.menu?.map((dish) => (
