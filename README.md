@@ -8,10 +8,9 @@
 
 1. dish option
 2. dish choices
-3. edit restaurant
-4. delete restaurant
-5. user profile
-6. edit user
-7. change user password
-8. Set strong password security
-9. Client pages
+3. delete restaurant
+4. user profile
+5. edit user
+6. change user password
+7. Set strong password security
+8. Client pages

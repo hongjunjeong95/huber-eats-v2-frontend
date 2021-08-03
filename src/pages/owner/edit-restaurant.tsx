@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import RestaurantEditForm from "../../components/restaurantEditForm";
 import { useFindMyRestaurantById } from "../../services/restaurant.service";
 
@@ -48,6 +48,9 @@ const UpdateRestaurant = memo(() => {
             restaurantId={restaurantId}
           />
         )}
+        <button className="button bg-gray-400 mt-4 w-3/4">
+          <Link to={`/myRestaurant?restaurantId=${restaurantId}`}>Back</Link>
+        </button>
       </div>
     </div>
   );
