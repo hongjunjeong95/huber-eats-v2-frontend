@@ -24,6 +24,7 @@ export interface CreateDishInput {
   price: number;
   photo: string;
   description: string;
+  options?: DishOptionInputType[] | null;
   restaurantId: number;
 }
 
@@ -37,6 +38,16 @@ export interface CreateRestaurantInput {
 export interface DeleteDishInput {
   id: number;
   restaurantId: number;
+}
+
+export interface DishChoiceInputType {
+  name: string;
+  extra?: number | null;
+}
+
+export interface DishOptionInputType {
+  name: string;
+  choices?: DishChoiceInputType[] | null;
 }
 
 export interface FindDishInput {

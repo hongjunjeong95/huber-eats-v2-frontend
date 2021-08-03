@@ -15,6 +15,7 @@ interface IFormProps {
   price: number;
   description: string;
   file: FileList;
+  [key: string]: string | number | FileList;
 }
 
 const AddMenu = memo(() => {
@@ -22,6 +23,9 @@ const AddMenu = memo(() => {
   const history = useHistory();
   const location = useLocation();
   const [_, restaurantId] = location.search.split("?restaurantId=");
+
+  const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
+
   const {
     register,
     getValues,
@@ -76,12 +80,16 @@ const AddMenu = memo(() => {
     }
   };
 
+  const addOptionBtn = () => {
+    setOptionsNumber((current) => [Date.now(), ...current]);
+  };
+
   return (
     <div className="w-full flex justify-center min-h-screen pb-20">
       <Helmet>
         <title>Add Menu| Huber Eats</title>
       </Helmet>
-      <div className="shadow-2xl border lg:w-1/3 py-10 flex max-h-screen flex-col justify-center items-center">
+      <div className="shadow-2xl border lg:w-1/3 py-10 flex min-h-screen flex-col justify-center items-center">
         <h4 className="font-semibold text-2xl mb-4">Add Menu</h4>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-3/4">
           <input
@@ -108,6 +116,33 @@ const AddMenu = memo(() => {
             rows={5}
           />
           <input {...register("file")} className="input" type="file" />
+          <div>
+            <div className="flex justify-between mb-4">
+              <h3 className="font-bold text-lg">Dish Option</h3>
+              <button onClick={addOptionBtn} className="button bg-green-400">
+                Add a Option
+              </button>
+            </div>
+            <div className="flex flex-col input">
+              {optionsNumber.length !== 0 &&
+                optionsNumber.map((id) => (
+                  <div>
+                    <input
+                      {...register(`${id}-optionName`, {
+                        required: "Menu name is required",
+                      })}
+                      type="text"
+                      placeholder="Option Name"
+                    />
+                    <input
+                      {...register(`${id}-optionExtra`)}
+                      type="number"
+                      placeholder="Option Extra"
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
           <Button
             canClick={isValid}
             actionText="Add Menu"
