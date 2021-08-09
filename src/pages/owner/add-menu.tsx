@@ -23,6 +23,7 @@ const AddMenu = memo(() => {
   const history = useHistory();
   const location = useLocation();
   const [, restaurantId] = location.search.split("?restaurantId=");
+  const [coverImg, setCoverImg] = useState("");
 
   const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
 
@@ -40,16 +41,20 @@ const AddMenu = memo(() => {
     try {
       setUploading(true);
       const { name, price, description, file } = getValues();
-      const actualFile = file[0];
-      const formBody = new FormData();
-      formBody.append("file", actualFile);
-      const { url: coverImg } = await (
-        await fetch("http://localhost:4000/uploads/", {
-          method: "POST",
-          body: formBody,
-        })
-      ).json();
 
+      if (file[0] !== undefined) {
+        const actualFile = file[0];
+        const formBody = new FormData();
+        formBody.append("file", actualFile);
+        const { url } = await (
+          await fetch("http://localhost:4000/uploads/", {
+            method: "POST",
+            body: formBody,
+          })
+        ).json();
+
+        setCoverImg(url);
+      }
       createDishMutation({
         variables: {
           input: {
