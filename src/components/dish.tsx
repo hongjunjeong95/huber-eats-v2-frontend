@@ -1,6 +1,9 @@
+import { gql } from "@apollo/client";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
+import { client } from "../apollo";
 import { useDeleteDishMutation } from "../services/dish.service";
+import { DeleteDish } from "../__generated__/DeleteDish";
 
 interface IDishProps {
   name: string;
@@ -13,7 +16,50 @@ interface IDishProps {
 
 const Dish: React.FC<IDishProps> = memo(
   ({ name, description, photo, price, restaurantId, dishId }) => {
-    const [deleteDishMutation, { data, loading }] = useDeleteDishMutation();
+    const onCompleted = (data: DeleteDish) => {
+      const {
+        deleteDish: { ok },
+      } = data;
+      if (ok) {
+        const restaurant = client.readFragment({
+          id: `Restaurant:${restaurantId}`,
+          fragment: gql`
+            fragment Restaurant on Restaurant {
+              name
+              menu {
+                name
+                price
+                description
+                photo
+              }
+            }
+          `,
+        });
+
+        const restaurantMenu = restaurant.menu.filter(
+          (aMenu: any) => aMenu.id !== dishId
+        );
+
+        client.writeFragment({
+          id: `Restaurant:${restaurantId}`,
+          fragment: gql`
+            fragment Restaurant on Restaurant {
+              menu {
+                name
+                price
+                description
+                photo
+              }
+            }
+          `,
+          data: {
+            menu: [...restaurantMenu],
+          },
+        });
+      }
+    };
+    const [deleteDishMutation, { data, loading }] =
+      useDeleteDishMutation(onCompleted);
     const onClickDelete = () => {
       deleteDishMutation({
         variables: {
