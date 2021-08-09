@@ -8,7 +8,6 @@ import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import { FIND_MY_RESTAURANT } from "../../services/gqls/restaurant.gql";
 import { useCreateDishMutation } from "../../services/dish.service";
-import { CreateDish } from "../../__generated__/CreateDish";
 
 interface IFormProps {
   name: string;

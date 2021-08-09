@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { client } from "../../apollo";
 import Dish from "../../components/dish";
 import { GET_MY_RESTAURANTS } from "../../services/gqls/restaurant.gql";
 import {
