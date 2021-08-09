@@ -7,6 +7,7 @@ import { FormError } from "../../components/form-error";
 import { Link, useHistory } from "react-router-dom";
 import { CreateAccountMutation } from "../../__generated__/CreateAccountMutation";
 import { UserRole } from "../../__generated__/globalTypes";
+import { Helmet } from "react-helmet-async";
 
 interface ICreateAccountForm {
   email: string;
@@ -54,6 +55,9 @@ export const CreateAccount = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center w-full">
+      <Helmet>
+        <title>Create account | Huber Eats</title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col items-center justify-center px-5">
         <img src={cooGetherLogo} alt="Coogether Logo" className="w-64 mb-10" />
         <h1 className="w-full text-3xl font-medium mb-12 text-left">

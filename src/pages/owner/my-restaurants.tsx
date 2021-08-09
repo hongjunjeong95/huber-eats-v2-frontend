@@ -1,12 +1,18 @@
 import { memo } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Restaurant from "../../components/restaurant";
 import { useGetMyRestaurants } from "../../services/restaurant.service";
+import { useMeQuery } from "../../services/user.service";
 
 const MyRestaurants = memo(() => {
   const { data, loading } = useGetMyRestaurants();
+  const { data: userData } = useMeQuery();
   return (
     <div className="max-w-screen-xl w-full mx-auto mt-32 mb-40 min-h-screen">
+      <Helmet>
+        <title>{`${userData?.me.email}'s restaurants`} | Huber Eats</title>
+      </Helmet>
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-4xl font-medium">My Retaurants</h2>
         <Link to="/add-restaurant" className="button bg-green-400">

@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Dish from "../../components/dish";
 import { GET_MY_RESTAURANTS } from "../../services/gqls/restaurant.gql";
@@ -43,6 +44,12 @@ const MyRestaurant = memo(() => {
 
   return (
     <div>
+      <Helmet>
+        <title>
+          {`${restaurantData?.findMyRestaurantById.restaurant?.name}`} | Huber
+          Eats
+        </title>
+      </Helmet>
       <div
         style={{
           background: `url(${restaurantData?.findMyRestaurantById.restaurant?.coverImg})`,

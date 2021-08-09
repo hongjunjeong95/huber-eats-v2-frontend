@@ -8,6 +8,7 @@ import { LOCALSTORATE_AUTH_TOKEN } from "../../constants";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 interface ILoginForm {
   email: string;
@@ -53,6 +54,9 @@ export const Login = () => {
 
   return (
     <div className="h-screen flex items-center justify-center w-full">
+      <Helmet>
+        <title>Login | Huber Eats</title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col items-center justify-center px-5">
         <img src={cooGetherLogo} alt="Coogether Logo" className="w-64 mb-10" />
         <h1 className="w-full text-3xl font-medium mb-12 text-left">

@@ -12,6 +12,7 @@ import {
 import { EditProfileMutation } from "../../__generated__/EditProfileMutation";
 import { client } from "../../apollo";
 import { gql } from "@apollo/client";
+import { Helmet } from "react-helmet-async";
 
 interface IEditProfileForm {
   email: string;
@@ -75,6 +76,9 @@ const EditProfile = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center w-full">
+      <Helmet>
+        <title>Edit {userData?.me.email} | Huber Eats</title>
+      </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col items-center justify-center px-5">
         <h1 className="font-bold text-2xl mb-10">Edit Profile</h1>
         <form
