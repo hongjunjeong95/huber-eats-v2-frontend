@@ -23,7 +23,7 @@ export const Header = () => {
           <button className="mr-5 text-2xl font-bold" onClick={logout}>
             Logout
           </button>
-          <Link to="#">
+          <Link to="/edit-profile">
             <FontAwesomeIcon icon={faUser} className="text-2xl" />
           </Link>
         </div>

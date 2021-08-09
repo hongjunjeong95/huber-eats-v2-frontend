@@ -7,6 +7,7 @@ import EditMenu from "../pages/owner/edit-menu";
 import UpdateRestaurant from "../pages/owner/edit-restaurant";
 import MyRestaurant from "../pages/owner/my-restaurant";
 import MyRestaurants from "../pages/owner/my-restaurants";
+import EditProfile from "../pages/user/edit-profile";
 
 const ownerRoutes = [
   { path: "/", component: <MyRestaurants /> },
@@ -17,6 +18,8 @@ const ownerRoutes = [
   { path: "/edit-menu", component: <EditMenu /> },
 ];
 
+const userRoutes = [{ path: "/edit-profile", component: <EditProfile /> }];
+
 export const LoggedInRouter = () => {
   return (
     <Router>
@@ -26,6 +29,11 @@ export const LoggedInRouter = () => {
           {ownerRoutes.map((ownerRoute) => (
             <Route key={ownerRoute.path} path={ownerRoute.path} exact>
               {ownerRoute.component}
+            </Route>
+          ))}
+          {userRoutes.map((userRoute) => (
+            <Route key={userRoute.path} path={userRoute.path} exact>
+              {userRoute.component}
             </Route>
           ))}
         </Switch>

@@ -10,7 +10,6 @@
 
 # todo
 
-- dish refactoring
 - user profile
 - edit user
 - change user password

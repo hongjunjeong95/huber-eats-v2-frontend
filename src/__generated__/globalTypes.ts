@@ -54,6 +54,11 @@ export interface DishOptionInputType {
   choices?: DishChoiceInputType[] | null;
 }
 
+export interface EditProfileInput {
+  email?: string | null;
+  password?: string | null;
+}
+
 export interface EditRestaurantInput {
   name?: string | null;
   coverImg?: string | null;
