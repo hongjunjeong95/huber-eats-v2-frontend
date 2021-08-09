@@ -75,7 +75,7 @@ const MyRestaurant = memo(() => {
             {restaurantData?.findMyRestaurantById.restaurant?.menu?.map(
               (dish) => (
                 <Dish
-                  key={Date.now()}
+                  key={Date.now() + dish.id}
                   name={dish.name}
                   description={dish.description}
                   price={dish.price}
