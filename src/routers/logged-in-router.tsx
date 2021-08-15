@@ -8,6 +8,8 @@ import UpdateRestaurant from "../pages/owner/edit-restaurant";
 import MyRestaurant from "../pages/owner/my-restaurant";
 import MyRestaurants from "../pages/owner/my-restaurants";
 import EditProfile from "../pages/user/edit-profile";
+import { useMeQuery } from "../services/user.service";
+import { UserRole } from "../__generated__/globalTypes";
 
 const ownerRoutes = [
   { path: "/", component: <MyRestaurants /> },
@@ -21,16 +23,18 @@ const ownerRoutes = [
 const userRoutes = [{ path: "/edit-profile", component: <EditProfile /> }];
 
 export const LoggedInRouter = () => {
+  const { data } = useMeQuery();
   return (
     <Router>
       <Header />
       <Wrapper>
         <Switch>
-          {ownerRoutes.map((ownerRoute) => (
-            <Route key={ownerRoute.path} path={ownerRoute.path} exact>
-              {ownerRoute.component}
-            </Route>
-          ))}
+          {data?.me.role === UserRole.Owner &&
+            ownerRoutes.map((ownerRoute) => (
+              <Route key={ownerRoute.path} path={ownerRoute.path} exact>
+                {ownerRoute.component}
+              </Route>
+            ))}
           {userRoutes.map((userRoute) => (
             <Route key={userRoute.path} path={userRoute.path} exact>
               {userRoute.component}

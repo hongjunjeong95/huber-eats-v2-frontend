@@ -21,7 +21,7 @@ const MenuAddForm: React.FC = memo(() => {
   const history = useHistory();
   const location = useLocation();
   const [, restaurantId] = location.search.split("?restaurantId=");
-  const [coverImg, setCoverImg] = useState("");
+  const [coverImg, setCoverImg] = useState<string>("");
   const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
 
   const {
@@ -102,6 +102,8 @@ const MenuAddForm: React.FC = memo(() => {
         ).json();
 
         setCoverImg(url);
+        console.log(url);
+        console.log(coverImg);
       }
       createDishMutation({
         variables: {

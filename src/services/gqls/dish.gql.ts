@@ -24,14 +24,10 @@ export const CREATE_DISH_MUTATION = gql`
 `;
 
 export const UPDATE_DISH_MUTATION = gql`
-  ${DISH_FRAGMENT}
   mutation UpdateDish($input: UpdateDishInput!) {
     updateDish(input: $input) {
       ok
       error
-      dish {
-        ...DishFragment
-      }
     }
   }
 `;

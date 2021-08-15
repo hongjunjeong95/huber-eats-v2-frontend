@@ -8,7 +8,7 @@ import { EditRestaurant } from "../__generated__/EditRestaurant";
 import { Button } from "./button";
 import { FormError } from "./form-error";
 
-interface IDishForm {
+interface IRestaurantEditFormProps {
   formName: string;
   formAddress: string;
   formCategoryName: string;
@@ -23,7 +23,7 @@ interface IFormProps {
   file: FileList;
 }
 
-const RestaurantEditForm: React.FC<IDishForm> = memo(
+const RestaurantEditForm: React.FC<IRestaurantEditFormProps> = memo(
   ({ formName, formAddress, formCategoryName, formCoverImg, restaurantId }) => {
     const [name, setName] = useState<string>(formName);
     const [address, setAddress] = useState<string>(formAddress);

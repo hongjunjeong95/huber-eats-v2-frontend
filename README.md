@@ -10,8 +10,5 @@
 
 # todo
 
-- user profile
-- edit user
-- change user password
 - Set strong password security
 - Client pages

@@ -1,8 +1,6 @@
 import React from "react";
-import cooGetherLogo from "../../images/logo.png";
 import { Button } from "../../components/button";
 import { Link, useHistory } from "react-router-dom";
-import { UserRole } from "../../__generated__/globalTypes";
 import { useForm } from "react-hook-form";
 import { FormError } from "../../components/form-error";
 import {
@@ -29,6 +27,9 @@ const EditProfile = () => {
     formState: { errors, isValid },
   } = useForm<IEditProfileForm>({
     mode: "onChange",
+    defaultValues: {
+      email: userData?.me.email,
+    },
   });
 
   const onCompleted = (data: EditProfileMutation) => {
@@ -77,7 +78,7 @@ const EditProfile = () => {
   return (
     <div className="min-h-screen flex items-center justify-center w-full">
       <Helmet>
-        <title>Edit {userData?.me.email} | Huber Eats</title>
+        <title>{`Edit ${userData?.me.email}`} | Huber Eats</title>
       </Helmet>
       <div className="w-full max-w-screen-sm flex flex-col items-center justify-center px-5">
         <h1 className="font-bold text-2xl mb-10">Edit Profile</h1>
