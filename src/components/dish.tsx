@@ -16,6 +16,10 @@ interface IDishProps {
 
 const Dish: React.FC<IDishProps> = memo(
   ({ name, description, photo, price, restaurantId, dishId }) => {
+    const slicedDescription =
+      description.length > 50
+        ? `${description.substring(0, 50)}...`
+        : description;
     const onCompleted = (data: DeleteDish) => {
       const {
         deleteDish: { ok },
@@ -71,27 +75,29 @@ const Dish: React.FC<IDishProps> = memo(
       });
     };
     return (
-      <div className={data ? "hidden" : "block"}>
-        <img src={photo} alt="" />
+      <div className={`${data ? "hidden" : "block"}`}>
+        <img src={photo} alt="" className="w-full h-1/3" />
         <div className="flex px-10 py-3 border-2">
           <div className="flex flex-col">
-            <h3 className="font-medium text-lg">{name}</h3>
-            <span className="">{description}</span>
-            <span className="mt-6">\{price}</span>
-          </div>
-          <div>
-            <Link
-              to={`/edit-menu?restaurantId=${restaurantId}&dishId=${dishId}`}
-              className={`ml-4 button bg-lime-500 text-sm py-1 px-2 mt-2`}
-            >
-              Edit
-            </Link>
-            <button
-              onClick={onClickDelete}
-              className="ml-2 button bg-red-500 text-sm py-1 px-2 mt-2"
-            >
-              {loading ? "Loading" : "Delete"}
-            </button>
+            <div className="mb-4 flex items-center">
+              <h3 className="font-medium text-lg">{name}</h3>
+              <div>
+                <Link
+                  to={`/edit-menu?restaurantId=${restaurantId}&dishId=${dishId}`}
+                  className={`ml-4 button bg-lime-500 text-sm py-1 px-2 mt-2`}
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={onClickDelete}
+                  className="ml-2 button bg-red-500 text-sm py-1 px-2"
+                >
+                  {loading ? "Loading" : "Delete"}
+                </button>
+              </div>
+            </div>
+            <div className="h-14">{slicedDescription}</div>
+            <span className="mt-3">\{price}</span>
           </div>
         </div>
       </div>
