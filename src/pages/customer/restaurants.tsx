@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Restaurant from "../../components/restaurant";
 import { useGetAllRestaurants } from "../../services/restaurant.service";
