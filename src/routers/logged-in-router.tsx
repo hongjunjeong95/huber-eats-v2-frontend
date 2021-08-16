@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
+import Restaurants from "../pages/customer/restaurants";
 import AddMenu from "../pages/owner/add-menu";
 import AddRestaurant from "../pages/owner/add-restaurant";
 import EditMenu from "../pages/owner/edit-menu";
@@ -20,6 +22,8 @@ const ownerRoutes = [
   { path: "/edit-menu", component: <EditMenu /> },
 ];
 
+const customerRoutes = [{ path: "/", component: <Restaurants /> }];
+
 const userRoutes = [{ path: "/edit-profile", component: <EditProfile /> }];
 
 export const LoggedInRouter = () => {
@@ -33,6 +37,12 @@ export const LoggedInRouter = () => {
             ownerRoutes.map((ownerRoute) => (
               <Route key={ownerRoute.path} path={ownerRoute.path} exact>
                 {ownerRoute.component}
+              </Route>
+            ))}
+          {data?.me.role === UserRole.Client &&
+            customerRoutes.map((customerRoute) => (
+              <Route key={customerRoute.path} path={customerRoute.path} exact>
+                {customerRoute.component}
               </Route>
             ))}
           {userRoutes.map((userRoute) => (

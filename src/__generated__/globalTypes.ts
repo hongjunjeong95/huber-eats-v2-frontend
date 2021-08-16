@@ -76,6 +76,10 @@ export interface FindMyRestaurantByIdInput {
   id: number;
 }
 
+export interface GetAllRestaurantsInput {
+  page?: number | null;
+}
+
 export interface LoginInput {
   email: string;
   password: string;

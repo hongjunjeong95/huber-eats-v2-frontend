@@ -2,6 +2,8 @@ import { DISH_FRAGMENT } from "./../fragments";
 import { gql } from "@apollo/client";
 import { RESTAURANT_FRAGMENT } from "../fragments";
 
+// Owner Gql
+
 export const GET_MY_RESTAURANTS = gql`
   ${RESTAURANT_FRAGMENT}
   query GetMyRestaurants {
@@ -60,6 +62,23 @@ export const DELETE_RESTAURANT_MUTATION = gql`
     deleteRestaurant(input: $input) {
       ok
       error
+    }
+  }
+`;
+
+// Customer Gql
+
+export const GET_ALL_RESTAURANTS = gql`
+  ${RESTAURANT_FRAGMENT}
+  query GetAllRestaurants($input: GetAllRestaurantsInput!) {
+    getAllRestaurants(input: $input) {
+      ok
+      error
+      totalPages
+      totalResults
+      restaurants {
+        ...RestaurantFragment
+      }
     }
   }
 `;
