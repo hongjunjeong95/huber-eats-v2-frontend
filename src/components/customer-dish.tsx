@@ -3,7 +3,6 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 import { client } from "../apollo";
-import { useDeleteDishMutation } from "../services/dish.service";
 import { DeleteDish } from "../__generated__/DeleteDish";
 
 interface IDishProps {
@@ -12,90 +11,63 @@ interface IDishProps {
   description: string;
   price: number;
   restaurantId: string;
-  dishId: string;
+  dishId: number;
+  orderStarted: boolean;
+  isSelected: boolean;
+  addItemToOrder: (dishId: number) => void;
+  removeFromOrder: (dishId: number) => void;
 }
 
 const CustomerDish: React.FC<IDishProps> = memo(
-  ({ name, description, photo, price, restaurantId, dishId }) => {
+  ({
+    name,
+    description,
+    photo,
+    price,
+    restaurantId,
+    dishId,
+    orderStarted,
+    isSelected,
+    addItemToOrder,
+    removeFromOrder,
+  }) => {
     const slicedDescription =
       description.length > 50
         ? `${description.substring(0, 50)}...`
         : description;
 
-    const onCompleted = (data: DeleteDish) => {
-      const {
-        deleteDish: { ok },
-      } = data;
-      if (ok) {
-        const restaurant = client.readFragment({
-          id: `Restaurant:${restaurantId}`,
-          fragment: gql`
-            fragment Restaurant on Restaurant {
-              name
-              menu {
-                name
-                price
-                description
-                photo
-              }
-            }
-          `,
-        });
-
-        const restaurantMenu = restaurant.menu.filter(
-          (aMenu: any) => aMenu.id !== dishId
-        );
-
-        client.writeFragment({
-          id: `Restaurant:${restaurantId}`,
-          fragment: gql`
-            fragment Restaurant on Restaurant {
-              menu {
-                name
-                price
-                description
-                photo
-              }
-            }
-          `,
-          data: {
-            menu: [...restaurantMenu],
-          },
-        });
+    const onClick = () => {
+      if (orderStarted) {
+        if (!isSelected && addItemToOrder) {
+          addItemToOrder(dishId);
+        } else if (isSelected && removeFromOrder) {
+          removeFromOrder(dishId);
+        }
       }
     };
-    const [deleteDishMutation, { data, loading }] =
-      useDeleteDishMutation(onCompleted);
-    const onClickDelete = () => {
-      deleteDishMutation({
-        variables: {
-          input: {
-            id: +dishId,
-            restaurantId: +restaurantId,
-          },
-        },
-      });
-    };
+
     return (
-      <div className={`${data ? "hidden" : ""}`}>
-        <img src={photo} alt="" className="w-full h-2/3 border" />
-        <div className="flex px-10 py-3 border-2">
+      <div
+        className={`border pb-10 cursor-pointer transition-all ${
+          isSelected ? "border-gray-800" : " hover:border-gray-800"
+        }`}
+      >
+        <img src={photo} alt="" className="w-full h-2/3" />
+        <div className="flex px-10 py-3">
           <div className="flex flex-col">
             <div className="mb-4 flex items-center">
               <h3 className="font-medium text-lg">{name}</h3>
               <div>
-                <button
-                  onClick={onClickDelete}
-                  className="ml-4 button bg-lime-500 text-sm py-1 px-2 mt-2"
-                >
-                  {loading ? "Loading" : "Add"}
-                </button>
-                <button
-                  onClick={onClickDelete}
-                  className="ml-2 button bg-red-500 text-sm py-1 px-2"
-                >
-                  {loading ? "Loading" : "Remove"}
-                </button>
+                {orderStarted && (
+                  <button
+                    className={`ml-4 button text-sm py-1 px-2 ${
+                      isSelected ? "bg-red-500" : "bg-lime-500"
+                    }`}
+                    onClick={onClick}
+                  >
+                    {isSelected ? "Remove" : "Add"}
+                  </button>
+                )}
               </div>
             </div>
             <div className="h-14">{slicedDescription}</div>
