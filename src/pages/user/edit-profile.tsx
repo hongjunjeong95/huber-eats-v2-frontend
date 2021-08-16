@@ -2,6 +2,11 @@ import React from "react";
 import { Button } from "../../components/button";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { gql } from "@apollo/client";
+import { Helmet } from "react-helmet-async";
+import * as Joi from "joi";
+
 import { FormError } from "../../components/form-error";
 import {
   useEditProfileMutation,
@@ -9,8 +14,6 @@ import {
 } from "../../services/user.service";
 import { EditProfileMutation } from "../../__generated__/EditProfileMutation";
 import { client } from "../../apollo";
-import { gql } from "@apollo/client";
-import { Helmet } from "react-helmet-async";
 
 interface IEditProfileForm {
   email: string;
@@ -20,6 +23,22 @@ interface IEditProfileForm {
 const EditProfile = () => {
   const { data: userData } = useMeQuery();
   const history = useHistory();
+  const validationSchema = Joi.object({
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net"] },
+    }),
+    password: Joi.string()
+      .min(8)
+      .message("Password must be longer thatn 8")
+      .pattern(
+        new RegExp(
+          /(?=.*[!@#$%^&\*\(\)_\+\-=\[\]\{\};\':\"\\\|,\.<>\/\?]+)(?=.*[a-zA-Z]+)(?=.*\d+)/
+        )
+      )
+      .message("Password must contain special character, string and number"),
+  });
+
   const {
     register,
     getValues,
@@ -30,6 +49,7 @@ const EditProfile = () => {
     defaultValues: {
       email: userData?.me.email,
     },
+    resolver: joiResolver(validationSchema),
   });
 
   const onCompleted = (data: EditProfileMutation) => {

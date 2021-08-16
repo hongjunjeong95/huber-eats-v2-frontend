@@ -1,13 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import * as Joi from "joi";
+import { joiResolver } from "@hookform/resolvers/joi";
+
 import { useCreateAccountMutation } from "../../services/user.service";
 import cooGetherLogo from "../../images/logo.png";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
-import { Link, useHistory } from "react-router-dom";
 import { CreateAccountMutation } from "../../__generated__/CreateAccountMutation";
 import { UserRole } from "../../__generated__/globalTypes";
-import { Helmet } from "react-helmet-async";
 
 interface ICreateAccountForm {
   email: string;
@@ -16,6 +19,21 @@ interface ICreateAccountForm {
 }
 
 export const CreateAccount = () => {
+  const validationSchema = Joi.object({
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net"] },
+    }),
+    password: Joi.string()
+      .min(8)
+      .message("Password must be longer thatn 8")
+      .pattern(
+        new RegExp(
+          /(?=.*[!@#$%^&\*\(\)_\+\-=\[\]\{\};\':\"\\\|,\.<>\/\?]+)(?=.*[a-zA-Z]+)(?=.*\d+)/
+        )
+      )
+      .message("Password must contain special character, string and number"),
+  });
   const {
     register,
     getValues,
@@ -23,6 +41,7 @@ export const CreateAccount = () => {
     formState: { errors, isValid },
   } = useForm<ICreateAccountForm>({
     mode: "onChange",
+    resolver: joiResolver(validationSchema),
   });
   const history = useHistory();
 
