@@ -76,6 +76,10 @@ export interface FindMyRestaurantByIdInput {
   id: number;
 }
 
+export interface FindRestaurantByIdInput {
+  id: number;
+}
+
 export interface GetAllRestaurantsInput {
   page?: number | null;
 }

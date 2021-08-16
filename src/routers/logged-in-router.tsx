@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
+import CustomerRestaurant from "../pages/customer/customer-restaurant";
 import Restaurants from "../pages/customer/restaurants";
 import AddMenu from "../pages/owner/add-menu";
 import AddRestaurant from "../pages/owner/add-restaurant";
@@ -15,14 +16,17 @@ import { UserRole } from "../__generated__/globalTypes";
 
 const ownerRoutes = [
   { path: "/", component: <MyRestaurants /> },
-  { path: "/myRestaurant", component: <MyRestaurant /> },
+  { path: "/restaurant", component: <MyRestaurant /> },
   { path: "/add-restaurant", component: <AddRestaurant /> },
   { path: "/edit-restaurant", component: <UpdateRestaurant /> },
   { path: "/add-menu", component: <AddMenu /> },
   { path: "/edit-menu", component: <EditMenu /> },
 ];
 
-const customerRoutes = [{ path: "/", component: <Restaurants /> }];
+const customerRoutes = [
+  { path: "/", component: <Restaurants /> },
+  { path: "/restaurant", component: <CustomerRestaurant /> },
+];
 
 const userRoutes = [{ path: "/edit-profile", component: <EditProfile /> }];
 

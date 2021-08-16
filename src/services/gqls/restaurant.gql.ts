@@ -82,3 +82,20 @@ export const GET_ALL_RESTAURANTS = gql`
     }
   }
 `;
+
+export const FIND_RESTAURANT_BY_ID = gql`
+  ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
+  query FindRestaurantById($input: FindRestaurantByIdInput!) {
+    findRestaurantById(input: $input) {
+      ok
+      error
+      restaurant {
+        ...RestaurantFragment
+        menu {
+          ...DishFragment
+        }
+      }
+    }
+  }
+`;

@@ -14,7 +14,7 @@ interface IDishProps {
   dishId: string;
 }
 
-const Dish: React.FC<IDishProps> = memo(
+const OwnerDish: React.FC<IDishProps> = memo(
   ({ name, description, photo, price, restaurantId, dishId }) => {
     const slicedDescription =
       description.length > 50
@@ -105,4 +105,4 @@ const Dish: React.FC<IDishProps> = memo(
   }
 );
 
-export default Dish;
+export default OwnerDish;

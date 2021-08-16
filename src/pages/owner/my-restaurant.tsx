@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import Dish from "../../components/dish";
+import OwnerDish from "../../components/owner-dish";
 import { GET_MY_RESTAURANTS } from "../../services/gqls/restaurant.gql";
 import {
   useDeleteRestaurantMutation,
@@ -82,7 +82,7 @@ const MyRestaurant = memo(() => {
           <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
             {restaurantData?.findMyRestaurantById.restaurant?.menu?.map(
               (dish) => (
-                <Dish
+                <OwnerDish
                   key={Date.now() + dish.id}
                   name={dish.name}
                   description={dish.description}

@@ -102,7 +102,7 @@ const RestaurantEditForm: React.FC<IRestaurantEditFormProps> = memo(
           },
         });
       }
-      history.push(`myRestaurant?restaurantId=${restaurantId}`);
+      history.push(`restaurant?restaurantId=${restaurantId}`);
     };
 
     const [editRestaurantMutation, { data, loading }] =

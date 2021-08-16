@@ -21,7 +21,7 @@ const MenuAddForm: React.FC = memo(() => {
   const history = useHistory();
   const location = useLocation();
   const [, restaurantId] = location.search.split("?restaurantId=");
-  const [coverImg, setCoverImg] = useState<string>("");
+  // const [coverImg, setCoverImg] = useState<string>("");
   const [optionsNumber, setOptionsNumber] = useState<number[]>([]);
 
   const {
@@ -79,7 +79,7 @@ const MenuAddForm: React.FC = memo(() => {
           ],
         },
       });
-      history.push(`myRestaurant?restaurantId=${restaurantId}`);
+      history.push(`restaurant?restaurantId=${restaurantId}`);
     }
   };
 
@@ -90,6 +90,7 @@ const MenuAddForm: React.FC = memo(() => {
       setUploading(true);
       const { name, price, description, file } = getValues();
 
+      let coverImg: string = "";
       if (file[0] !== undefined) {
         const actualFile = file[0];
         const formBody = new FormData();
@@ -101,9 +102,7 @@ const MenuAddForm: React.FC = memo(() => {
           })
         ).json();
 
-        setCoverImg(url);
-        console.log(url);
-        console.log(coverImg);
+        coverImg = url;
       }
       createDishMutation({
         variables: {

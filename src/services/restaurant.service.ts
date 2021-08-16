@@ -16,6 +16,10 @@ import {
   FindMyRestaurantByIdVariables,
 } from "../__generated__/FindMyRestaurantById";
 import {
+  FindRestaurantById,
+  FindRestaurantByIdVariables,
+} from "../__generated__/FindRestaurantById";
+import {
   GetAllRestaurants,
   GetAllRestaurantsVariables,
 } from "../__generated__/GetAllRestaurants";
@@ -25,6 +29,7 @@ import {
   DELETE_RESTAURANT_MUTATION,
   EDIT_RESTAURANT_MUTATION,
   FIND_MY_RESTAURANT,
+  FIND_RESTAURANT_BY_ID,
   GET_ALL_RESTAURANTS,
   GET_MY_RESTAURANTS,
 } from "./gqls/restaurant.gql";
@@ -94,3 +99,19 @@ export const useGetAllRestaurants = (
     },
     onCompleted,
   });
+
+export const useFindRestaurantById = (
+  id: number,
+  onCompleted?: (data: FindRestaurantById) => void
+) =>
+  useQuery<FindRestaurantById, FindRestaurantByIdVariables>(
+    FIND_RESTAURANT_BY_ID,
+    {
+      variables: {
+        input: {
+          id,
+        },
+      },
+      onCompleted,
+    }
+  );

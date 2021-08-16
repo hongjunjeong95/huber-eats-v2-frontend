@@ -8,6 +8,17 @@ module.exports = {
       colors: {
         lime: colors.lime,
       },
+      height: {
+        "80vh": "80vh",
+        "84vh": "84vh",
+        "88vh": "88vh",
+        "88vh": "88vh",
+        "92vh": "92vh",
+        "96vh": "96vh",
+      },
+      gridAutoRows: {
+        "440px": "minmax(0, 440px)",
+      },
     },
   },
   variants: {

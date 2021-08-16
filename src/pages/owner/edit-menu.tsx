@@ -51,7 +51,7 @@ const EditMenu = memo(() => {
         )}
 
         <button className="button bg-gray-400 mt-4 w-3/4">
-          <Link to={`/myRestaurant?restaurantId=${restaurantId}`}>Back</Link>
+          <Link to={`/restaurant?restaurantId=${restaurantId}`}>Back</Link>
         </button>
       </div>
     </div>

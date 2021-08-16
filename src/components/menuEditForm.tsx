@@ -34,7 +34,8 @@ const MenuEditForm: React.FC<IDishEditFormProps> = memo(
     restaurantId,
     dishId,
   }) => {
-    const [photo, setPhoto] = useState<string>(formDishImg ?? "");
+    const [cachePhoto, setCachePhoto] = useState<string>(formDishImg ?? "");
+
     const [uploading, setUploading] = useState<boolean>(false);
     const history = useHistory();
 
@@ -90,10 +91,10 @@ const MenuEditForm: React.FC<IDishEditFormProps> = memo(
             name,
             price,
             description,
-            photo,
+            photo: cachePhoto,
           },
         });
-        history.push(`myRestaurant?restaurantId=${restaurantId}`);
+        history.push(`restaurant?restaurantId=${restaurantId}`);
       }
     };
 
@@ -106,6 +107,7 @@ const MenuEditForm: React.FC<IDishEditFormProps> = memo(
         const { name, price, description, file } = getValues();
 
         if (file[0] !== undefined) {
+          let photo: string = formDishImg ?? "";
           const actualFile = file[0];
           const formBody = new FormData();
           formBody.append("file", actualFile);
@@ -116,13 +118,14 @@ const MenuEditForm: React.FC<IDishEditFormProps> = memo(
             })
           ).json();
 
-          setPhoto(url);
+          photo = url;
+          setCachePhoto(url);
           updateDishMutation({
             variables: {
               input: {
                 name,
                 price: +price,
-                photo: photo,
+                photo,
                 description,
                 restaurantId: +restaurantId,
                 id: +dishId,

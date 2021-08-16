@@ -12,7 +12,7 @@ interface IRestaurantProps {
 const Restaurant: React.FC<IRestaurantProps> = memo(
   ({ name, addresss, categoryName, coverImg, id }) => {
     return (
-      <Link to={`myRestaurant?restaurantId=${id}`}>
+      <Link to={`restaurant?restaurantId=${id}`}>
         <div className="flex flex-col">
           <img src={coverImg} alt="" className="max-h-64" />
           <h3 className="text-xl mt-2">{name}</h3>
