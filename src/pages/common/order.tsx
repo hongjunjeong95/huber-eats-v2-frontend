@@ -1,19 +1,51 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import { ORDER_UPDATED_SUBSCRIPTION } from "../../services/gqls/order.gql";
+
 import {
   useFindOrderQuery,
   useUpdateOrderStatusMutation,
 } from "../../services/order.service";
 import { useMeQuery } from "../../services/user.service";
 import { OrderStatus, UserRole } from "../../__generated__/globalTypes";
+import { OrderUpdated } from "../../__generated__/OrderUpdated";
 
 const Order = memo(() => {
   const location = useLocation();
   const [, orderId] = location.search.split("?orderId=");
 
   const { data: userData } = useMeQuery();
-  const { data } = useFindOrderQuery(+orderId);
+  const { data, subscribeToMore } = useFindOrderQuery(+orderId);
+
+  useEffect(() => {
+    if (data?.findOrder.ok) {
+      subscribeToMore({
+        document: ORDER_UPDATED_SUBSCRIPTION,
+        variables: {
+          input: {
+            id: +orderId,
+          },
+        },
+        updateQuery: (
+          prev,
+          {
+            subscriptionData: { data },
+          }: { subscriptionData: { data: OrderUpdated } }
+        ) => {
+          if (!data) return prev;
+          return {
+            findOrder: {
+              ...prev.findOrder,
+              order: {
+                ...data.orderUpdated,
+              },
+            },
+          };
+        },
+      });
+    }
+  }, [data, subscribeToMore, orderId]);
 
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
 

@@ -41,3 +41,12 @@ export const PENDING_ORDER_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const ORDER_UPDATED_SUBSCRIPTION = gql`
+  ${FULL_ORDER_FRAGMENT}
+  subscription OrderUpdated($input: OrderUpdatedInput!) {
+    orderUpdated(input: $input) {
+      ...FullOrderParts
+    }
+  }
+`;

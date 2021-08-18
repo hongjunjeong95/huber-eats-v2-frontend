@@ -116,6 +116,10 @@ export interface OrderItemOptionInputType {
   choice?: string | null;
 }
 
+export interface OrderUpdatedInput {
+  id: number;
+}
+
 export interface UpdateDishInput {
   id?: number | null;
   name?: string | null;
