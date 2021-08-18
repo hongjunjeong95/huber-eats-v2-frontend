@@ -107,6 +107,14 @@ const Order = memo(() => {
                 Order Accepted
               </button>
             )}
+            {data?.findOrder.order?.status === OrderStatus.Cooking && (
+              <button
+                onClick={() => onButtonClick(OrderStatus.Cooked)}
+                className="button m-5 bg-lime-500 mt-5 mb-3 text-2xl text-white"
+              >
+                Cooked
+              </button>
+            )}
 
             {data?.findOrder.order?.status !== OrderStatus.Cooking &&
               data?.findOrder.order?.status !== OrderStatus.Pending && (
