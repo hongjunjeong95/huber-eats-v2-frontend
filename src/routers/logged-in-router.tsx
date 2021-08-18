@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { Header } from "../components/header";
 import Wrapper from "../components/wraper";
+import Order from "../pages/common/order";
 import CustomerRestaurant from "../pages/customer/customer-restaurant";
 import Restaurants from "../pages/customer/restaurants";
 import AddMenu from "../pages/owner/add-menu";
@@ -28,7 +29,10 @@ const customerRoutes = [
   { path: "/restaurant", component: <CustomerRestaurant /> },
 ];
 
-const userRoutes = [{ path: "/edit-profile", component: <EditProfile /> }];
+const commonRoutes = [
+  { path: "/edit-profile", component: <EditProfile /> },
+  { path: "/order", component: <Order /> },
+];
 
 export const LoggedInRouter = () => {
   const { data } = useMeQuery();
@@ -49,9 +53,9 @@ export const LoggedInRouter = () => {
                 {customerRoute.component}
               </Route>
             ))}
-          {userRoutes.map((userRoute) => (
-            <Route key={userRoute.path} path={userRoute.path} exact>
-              {userRoute.component}
+          {commonRoutes.map((commonRoute) => (
+            <Route key={commonRoute.path} path={commonRoute.path} exact>
+              {commonRoute.component}
             </Route>
           ))}
         </Switch>

@@ -1,8 +1,10 @@
 import React, { memo } from "react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import OwnerDish from "../../components/owner-dish";
 import { GET_MY_RESTAURANTS } from "../../services/gqls/restaurant.gql";
+import { usePendingOrderSubscription } from "../../services/order.service";
 import {
   useDeleteRestaurantMutation,
   useFindMyRestaurantById,
@@ -27,6 +29,14 @@ const MyRestaurant = memo(() => {
 
   const [deleteRestaurantMutation, { loading }] =
     useDeleteRestaurantMutation(onCompleted);
+  const { data: pendingOrderData } = usePendingOrderSubscription();
+
+  useEffect(() => {
+    if (pendingOrderData?.pendingOrder.id) {
+      history.push(`/order?orderId=${pendingOrderData.pendingOrder.id}`);
+    }
+  }, [pendingOrderData, history]);
+
   const onClickDelete = () => {
     deleteRestaurantMutation({
       variables: {
@@ -81,7 +91,7 @@ const MyRestaurant = memo(() => {
           </div>
           <div className="grid md:grid-cols-3 gap-x-5 gap-y-10">
             {restaurantData?.findMyRestaurantById.restaurant?.menu?.map(
-              (dish) => (
+              (dish: any) => (
                 <OwnerDish
                   key={Date.now() + dish.id}
                   name={dish.name}

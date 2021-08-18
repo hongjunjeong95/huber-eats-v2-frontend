@@ -1,10 +1,11 @@
 import React, { memo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import CustomerDish from "../../components/customer-dish";
 import { useCreateOrderMutation } from "../../services/order.service";
 import { useFindRestaurantById } from "../../services/restaurant.service";
+import { CreateOrder } from "../../__generated__/CreateOrder";
 import { CreateOrderItemInput } from "../../__generated__/globalTypes";
 
 const CustomerRestaurant = memo(() => {
@@ -14,7 +15,19 @@ const CustomerRestaurant = memo(() => {
   const location = useLocation();
   const [, restaurantId] = location.search.split("?restaurantId=");
   const { data: restaurantData } = useFindRestaurantById(+restaurantId);
-  const [createOrderMutation, { loading }] = useCreateOrderMutation();
+
+  const onCompleted = (data: CreateOrder) => {
+    const {
+      createOrder: { ok, orderId },
+    } = data;
+    if (ok) {
+      history.push(`/order?orderId=${orderId}`);
+    }
+  };
+
+  const [createOrderMutation, { loading }] =
+    useCreateOrderMutation(onCompleted);
+  const history = useHistory();
 
   const triggerStartOrder = () => {
     setOrderStarted(true);
@@ -45,130 +58,10 @@ const CustomerRestaurant = memo(() => {
       setItems((current) => current.filter((dish) => dish.dishId !== dishId));
     }
   };
-  const a = {
-    errors: [
-      {
-        message:
-          'Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "name" of required type "String!" was not provided.',
-        locations: [{ line: 1, column: 21 }],
-        extensions: {
-          code: "BAD_USER_INPUT",
-          exception: {
-            stacktrace: [
-              'GraphQLError: Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "name" of required type "String!" was not provided.',
-              "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:99:11)",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-              "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-              "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-              "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-              "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-              "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-              "    at executeImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:101:20)",
-              "    at Object.execute (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:60:35)",
-            ],
-          },
-        },
-      },
-      {
-        message:
-          'Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "price" of required type "Int!" was not provided.',
-        locations: [{ line: 1, column: 21 }],
-        extensions: {
-          code: "BAD_USER_INPUT",
-          exception: {
-            stacktrace: [
-              'GraphQLError: Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "price" of required type "Int!" was not provided.',
-              "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:99:11)",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-              "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-              "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-              "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-              "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-              "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-              "    at executeImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:101:20)",
-              "    at Object.execute (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:60:35)",
-            ],
-          },
-        },
-      },
-      {
-        message:
-          'Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "photo" of required type "String!" was not provided.',
-        locations: [{ line: 1, column: 21 }],
-        extensions: {
-          code: "BAD_USER_INPUT",
-          exception: {
-            stacktrace: [
-              'GraphQLError: Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "photo" of required type "String!" was not provided.',
-              "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:99:11)",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-              "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-              "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-              "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-              "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-              "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-              "    at executeImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:101:20)",
-              "    at Object.execute (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:60:35)",
-            ],
-          },
-        },
-      },
-      {
-        message:
-          'Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "description" of required type "String!" was not provided.',
-        locations: [{ line: 1, column: 21 }],
-        extensions: {
-          code: "BAD_USER_INPUT",
-          exception: {
-            stacktrace: [
-              'GraphQLError: Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "description" of required type "String!" was not provided.',
-              "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:99:11)",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-              "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-              "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-              "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-              "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-              "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-              "    at executeImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:101:20)",
-              "    at Object.execute (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:60:35)",
-            ],
-          },
-        },
-      },
-      {
-        message:
-          'Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "items" is not defined by type "CreateDishInput".',
-        locations: [{ line: 1, column: 21 }],
-        extensions: {
-          code: "BAD_USER_INPUT",
-          exception: {
-            stacktrace: [
-              'GraphQLError: Variable "$input" got invalid value { restaurantId: 14, items: [[Object], [Object]] }; Field "items" is not defined by type "CreateDishInput".',
-              "    at C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:116:15",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:114:9)",
-              "    at coerceInputValueImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:54:14)",
-              "    at coerceInputValue (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\utilities\\coerceInputValue.js:37:10)",
-              "    at _loop (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:109:69)",
-              "    at coerceVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:121:16)",
-              "    at getVariableValues (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\values.js:50:19)",
-              "    at buildExecutionContext (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:203:61)",
-              "    at executeImpl (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:101:20)",
-              "    at Object.execute (C:\\Disk ks\\Git\\nuber-eats\\huber-eats-v2\\huber-eats-v2-backend\\node_modules\\graphql\\execution\\execute.js:60:35)",
-            ],
-          },
-        },
-      },
-    ],
-  };
 
   const triggerConfirmOrder = () => {
     const ok = window.confirm("Do you want to order?");
     if (ok) {
-      console.log(items);
       createOrderMutation({
         variables: {
           input: {
@@ -233,21 +126,23 @@ const CustomerRestaurant = memo(() => {
         )}
 
         <div className="mt-16 grid md:grid-cols-3 auto-rows-440px gap-x-5 gap-y-20">
-          {restaurantData?.findRestaurantById.restaurant?.menu?.map((dish) => (
-            <CustomerDish
-              key={Date.now() + dish.id}
-              name={dish.name}
-              description={dish.description}
-              price={dish.price}
-              photo={dish.photo}
-              restaurantId={restaurantId}
-              dishId={dish.id}
-              orderStarted={orderStarted}
-              isSelected={isSelected(dish.id)}
-              addItemToOrder={addItemToOrder}
-              removeFromOrder={removeFromOrder}
-            />
-          ))}
+          {restaurantData?.findRestaurantById.restaurant?.menu?.map(
+            (dish: any) => (
+              <CustomerDish
+                key={Date.now() + dish.id}
+                name={dish.name}
+                description={dish.description}
+                price={dish.price}
+                photo={dish.photo}
+                restaurantId={restaurantId}
+                dishId={dish.id}
+                orderStarted={orderStarted}
+                isSelected={isSelected(dish.id)}
+                addItemToOrder={addItemToOrder}
+                removeFromOrder={removeFromOrder}
+              />
+            )
+          )}
         </div>
       </div>
     </div>
