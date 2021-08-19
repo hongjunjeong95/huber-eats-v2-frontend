@@ -1,9 +1,4 @@
-import { gql } from "@apollo/client";
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-
-import { client } from "../apollo";
-import { DeleteDish } from "../__generated__/DeleteDish";
 
 interface IDishProps {
   name: string;

@@ -21,6 +21,7 @@ export interface OrderUpdated_orderUpdated_customer {
 
 export interface OrderUpdated_orderUpdated_restaurant {
   __typename: "Restaurant";
+  id: number;
   name: string;
 }
 

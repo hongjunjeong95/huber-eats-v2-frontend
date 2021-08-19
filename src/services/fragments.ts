@@ -41,6 +41,7 @@ export const FULL_ORDER_FRAGMENT = gql`
       email
     }
     restaurant {
+      id
       name
     }
   }

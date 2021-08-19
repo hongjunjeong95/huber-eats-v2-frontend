@@ -10,9 +10,6 @@
 
 # todo
 
-- driver dashboard
-- driver subscription ( Take Order )
-- google map
 - React query
 - recoil
 - aws amplify

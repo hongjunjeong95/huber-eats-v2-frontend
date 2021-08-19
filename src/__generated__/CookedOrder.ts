@@ -21,6 +21,7 @@ export interface CookedOrder_cookedOrder_customer {
 
 export interface CookedOrder_cookedOrder_restaurant {
   __typename: "Restaurant";
+  id: number;
   name: string;
 }
 

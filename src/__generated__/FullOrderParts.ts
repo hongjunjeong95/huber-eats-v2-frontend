@@ -21,6 +21,7 @@ export interface FullOrderParts_customer {
 
 export interface FullOrderParts_restaurant {
   __typename: "Restaurant";
+  id: number;
   name: string;
 }
 

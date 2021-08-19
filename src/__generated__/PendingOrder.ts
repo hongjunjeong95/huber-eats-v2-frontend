@@ -21,6 +21,7 @@ export interface PendingOrder_pendingOrder_customer {
 
 export interface PendingOrder_pendingOrder_restaurant {
   __typename: "Restaurant";
+  id: number;
   name: string;
 }
 

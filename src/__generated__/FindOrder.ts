@@ -21,6 +21,7 @@ export interface FindOrder_findOrder_order_customer {
 
 export interface FindOrder_findOrder_order_restaurant {
   __typename: "Restaurant";
+  id: number;
   name: string;
 }
 
