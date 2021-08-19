@@ -50,3 +50,12 @@ export const ORDER_UPDATED_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const COOKED_ORDER_SUBSCRIPTION = gql`
+  ${FULL_ORDER_FRAGMENT}
+  subscription CookedOrder {
+    cookedOrder {
+      ...FullOrderParts
+    }
+  }
+`;

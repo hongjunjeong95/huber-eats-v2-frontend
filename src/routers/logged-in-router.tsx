@@ -5,6 +5,7 @@ import Wrapper from "../components/wraper";
 import Order from "../pages/common/order";
 import CustomerRestaurant from "../pages/customer/customer-restaurant";
 import Restaurants from "../pages/customer/restaurants";
+import DeliverDashboard from "../pages/driver/dashboard";
 import AddMenu from "../pages/owner/add-menu";
 import AddRestaurant from "../pages/owner/add-restaurant";
 import EditMenu from "../pages/owner/edit-menu";
@@ -29,6 +30,8 @@ const customerRoutes = [
   { path: "/restaurant", component: <CustomerRestaurant /> },
 ];
 
+const deliverRoutes = [{ path: "/", component: <DeliverDashboard /> }];
+
 const commonRoutes = [
   { path: "/edit-profile", component: <EditProfile /> },
   { path: "/order", component: <Order /> },
@@ -51,6 +54,12 @@ export const LoggedInRouter = () => {
             customerRoutes.map((customerRoute) => (
               <Route key={customerRoute.path} path={customerRoute.path} exact>
                 {customerRoute.component}
+              </Route>
+            ))}
+          {data?.me.role === UserRole.Deliver &&
+            deliverRoutes.map((deliverRoute) => (
+              <Route key={deliverRoute.path} path={deliverRoute.path} exact>
+                {deliverRoute.component}
               </Route>
             ))}
           {commonRoutes.map((commonRoute) => (

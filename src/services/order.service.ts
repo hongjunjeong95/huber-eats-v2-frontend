@@ -9,12 +9,14 @@ import {
   CreateOrderVariables,
 } from "../__generated__/CreateOrder";
 import {
+  COOKED_ORDER_SUBSCRIPTION,
   CREATE_ORDER_MUTATION,
   FIND_ORDER_QUERY,
   PENDING_ORDER_SUBSCRIPTION,
   UPDATE_ORDER_MUTATION,
 } from "./gqls/order.gql";
 import { FindOrder, FindOrderVariables } from "../__generated__/FindOrder";
+import { CookedOrder } from "../__generated__/CookedOrder";
 
 export const useFindOrderQuery = (orderId: number) =>
   useQuery<FindOrder, FindOrderVariables>(FIND_ORDER_QUERY, {
@@ -44,3 +46,6 @@ export const useUpdateOrderStatusMutation = (
 
 export const usePendingOrderSubscription = () =>
   useSubscription<PendingOrder>(PENDING_ORDER_SUBSCRIPTION);
+
+export const useCookedOrderSubscription = () =>
+  useSubscription<CookedOrder>(COOKED_ORDER_SUBSCRIPTION);

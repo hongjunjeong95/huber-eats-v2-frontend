@@ -10,8 +10,9 @@
 
 # todo
 
-- order subscription - owner
-- order page
 - driver dashboard
 - driver subscription ( Take Order )
 - google map
+- React query
+- recoil
+- aws amplify
