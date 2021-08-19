@@ -1,4 +1,8 @@
 import {
+  TakeOrderByDeliver,
+  TakeOrderByDeliverVariables,
+} from "./../__generated__/TakeOrderByDeliver";
+import {
   UpdateOrderStatus,
   UpdateOrderStatusVariables,
 } from "./../__generated__/UpdateOrderStatus";
@@ -13,10 +17,13 @@ import {
   CREATE_ORDER_MUTATION,
   FIND_ORDER_QUERY,
   PENDING_ORDER_SUBSCRIPTION,
+  TAKE_ORDER_BY_DELIVER_MUTATION,
   UPDATE_ORDER_MUTATION,
 } from "./gqls/order.gql";
 import { FindOrder, FindOrderVariables } from "../__generated__/FindOrder";
 import { CookedOrder } from "../__generated__/CookedOrder";
+
+// Query
 
 export const useFindOrderQuery = (orderId: number) =>
   useQuery<FindOrder, FindOrderVariables>(FIND_ORDER_QUERY, {
@@ -26,6 +33,8 @@ export const useFindOrderQuery = (orderId: number) =>
       },
     },
   });
+
+// Mutation
 
 export const useCreateOrderMutation = (
   onCompleted?: (data: CreateOrder) => void
@@ -43,6 +52,18 @@ export const useUpdateOrderStatusMutation = (
       onCompleted,
     }
   );
+
+export const useTakeOrderByDeliverMutation = (
+  onCompleted?: (data: TakeOrderByDeliver) => void
+) =>
+  useMutation<TakeOrderByDeliver, TakeOrderByDeliverVariables>(
+    TAKE_ORDER_BY_DELIVER_MUTATION,
+    {
+      onCompleted,
+    }
+  );
+
+// Subscription
 
 export const usePendingOrderSubscription = () =>
   useSubscription<PendingOrder>(PENDING_ORDER_SUBSCRIPTION);

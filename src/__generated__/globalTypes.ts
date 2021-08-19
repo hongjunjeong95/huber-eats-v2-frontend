@@ -120,6 +120,10 @@ export interface OrderUpdatedInput {
   id: number;
 }
 
+export interface TakeOrderByDeliverInput {
+  orderId: number;
+}
+
 export interface UpdateDishInput {
   id?: number | null;
   name?: string | null;

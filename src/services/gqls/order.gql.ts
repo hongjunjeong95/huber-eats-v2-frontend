@@ -1,6 +1,8 @@
 import { gql } from "@apollo/client";
 import { FULL_ORDER_FRAGMENT } from "../fragments";
 
+// Query
+
 export const FIND_ORDER_QUERY = gql`
   ${FULL_ORDER_FRAGMENT}
   query FindOrder($input: FindOrderInput!) {
@@ -13,6 +15,8 @@ export const FIND_ORDER_QUERY = gql`
     }
   }
 `;
+
+// Mutation
 
 export const CREATE_ORDER_MUTATION = gql`
   mutation CreateOrder($input: CreateOrderInput!) {
@@ -32,6 +36,17 @@ export const UPDATE_ORDER_MUTATION = gql`
     }
   }
 `;
+
+export const TAKE_ORDER_BY_DELIVER_MUTATION = gql`
+  mutation TakeOrderByDeliver($input: TakeOrderByDeliverInput!) {
+    takeOrderByDeliver(input: $input) {
+      ok
+      error
+    }
+  }
+`;
+
+// Subscription
 
 export const PENDING_ORDER_SUBSCRIPTION = gql`
   ${FULL_ORDER_FRAGMENT}

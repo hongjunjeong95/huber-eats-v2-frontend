@@ -1,9 +1,34 @@
 import React from "react";
-import { memo } from "react";
-import { useCookedOrderSubscription } from "../../services/order.service";
+import { useHistory } from "react-router-dom";
 
-const DeliverDashboard = memo(() => {
+import {
+  useCookedOrderSubscription,
+  useTakeOrderByDeliverMutation,
+} from "../../services/order.service";
+import { TakeOrderByDeliver } from "../../__generated__/TakeOrderByDeliver";
+
+const DeliverDashboard = () => {
+  const history = useHistory();
+
   const { data: cookedOrderSubscriptionData } = useCookedOrderSubscription();
+  const onCompleted = (data: TakeOrderByDeliver) => {
+    if (data.takeOrderByDeliver.ok) {
+      history.push(
+        `/order?orderId=${cookedOrderSubscriptionData?.cookedOrder.id}`
+      );
+    }
+  };
+  const [takeOrderMutation] = useTakeOrderByDeliverMutation(onCompleted);
+
+  const triggerTakeOrder = (orderId: number) => {
+    takeOrderMutation({
+      variables: {
+        input: {
+          orderId,
+        },
+      },
+    });
+  };
 
   return (
     <div>
@@ -15,7 +40,12 @@ const DeliverDashboard = memo(() => {
               Pick up @ {""}
               {cookedOrderSubscriptionData?.cookedOrder.restaurant?.name}
             </h1>
-            <button className="button m-5 w-full bg-lime-500 mt-5 mb-3 text-2xl text-white">
+            <button
+              onClick={() =>
+                triggerTakeOrder(cookedOrderSubscriptionData?.cookedOrder.id)
+              }
+              className="button m-5 w-full bg-lime-500 mt-5 mb-3 text-2xl text-white"
+            >
               Take Order &rarr;
             </button>
           </>
@@ -25,6 +55,6 @@ const DeliverDashboard = memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default DeliverDashboard;
