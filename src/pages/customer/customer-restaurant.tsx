@@ -25,8 +25,7 @@ const CustomerRestaurant = memo(() => {
     }
   };
 
-  const [createOrderMutation, { loading }] =
-    useCreateOrderMutation(onCompleted);
+  const [createOrderMutation] = useCreateOrderMutation(onCompleted);
   const history = useHistory();
 
   const triggerStartOrder = () => {

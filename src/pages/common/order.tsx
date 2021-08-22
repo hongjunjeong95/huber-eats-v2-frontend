@@ -63,7 +63,7 @@ const Order = memo(() => {
         }, 1000);
       }
     }
-  }, [data, subscribeToMore, orderId]);
+  }, [data, subscribeToMore, orderId, history, userData?.me.role]);
 
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
 
