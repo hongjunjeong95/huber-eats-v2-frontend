@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import OwnerDish from "../../components/owner-dish";
-import { GET_MY_RESTAURANTS } from "../../services/gqls/restaurant.gql";
 import { usePendingOrderSubscription } from "../../services/order.service";
 import {
   useDeleteRestaurantMutation,
@@ -44,11 +43,9 @@ const MyRestaurant = memo(() => {
           id: +restaurantId,
         },
       },
-      refetchQueries: [
-        {
-          query: GET_MY_RESTAURANTS,
-        },
-      ],
+      update(cache) {
+        cache.evict({ id: `Restaurant:${restaurantId}` });
+      },
     });
   };
 
