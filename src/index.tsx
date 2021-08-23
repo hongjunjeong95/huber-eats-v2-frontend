@@ -3,16 +3,21 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { client } from "./apollo";
 import { App } from "./components/app";
 import "./styles/styles.css";
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <HelmetProvider>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </HelmetProvider>
     </ApolloProvider>
   </React.StrictMode>,

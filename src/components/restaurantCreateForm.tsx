@@ -1,12 +1,16 @@
 import React, { memo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { useMutation } from "react-query";
+import axios from "axios";
+
 import { client } from "../apollo";
 import { GET_MY_RESTAURANTS } from "../services/gqls/restaurant.gql";
 import { useCreateRestaurantMutation } from "../services/restaurant.service";
 import { CreateRestaurant } from "../__generated__/CreateRestaurant";
 import { Button } from "./button";
 import { FormError } from "./form-error";
+import { useCallback } from "react";
 
 interface IFormProps {
   name: string;
@@ -16,8 +20,17 @@ interface IFormProps {
 }
 
 const RestaurantCreateForm: React.FC = memo(() => {
-  const [uploading, setUploading] = useState<boolean>(false);
   const [coverImg, setCoverImg] = useState<string>("");
+  const { mutateAsync, status: uploadStatus } = useMutation(
+    async (formBody: FormData) =>
+      await axios({
+        method: "post",
+        url: "http://localhost:4000/uploads/",
+        headers: {},
+        data: formBody,
+      })
+  );
+
   const history = useHistory();
   const {
     register,
@@ -35,13 +48,11 @@ const RestaurantCreateForm: React.FC = memo(() => {
 
     if (ok) {
       const { name, address, categoryName } = getValues();
-      setUploading(false);
-      const queryResult = client.readQuery({ query: GET_MY_RESTAURANTS });
+
       client.writeQuery({
         query: GET_MY_RESTAURANTS,
         data: {
           getMyRestaurants: {
-            ...queryResult.getMyRestaurants,
             restaurants: [
               {
                 id: restaurantId,
@@ -54,7 +65,6 @@ const RestaurantCreateForm: React.FC = memo(() => {
                   name: categoryName,
                 },
               },
-              ...queryResult.getMyRestaurants.restaurants,
             ],
           },
         },
@@ -65,35 +75,37 @@ const RestaurantCreateForm: React.FC = memo(() => {
 
   const [createRestaurantMutation, { data, loading }] =
     useCreateRestaurantMutation(onCompleted);
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     try {
-      setUploading(true);
       const { name, address, categoryName, file } = getValues();
-      const actualFile = file[0];
-      const formBody = new FormData();
-      formBody.append("file", actualFile);
-      const { url: coverImg } = await (
-        await fetch("http://localhost:4000/uploads/", {
-          method: "POST",
-          body: formBody,
-        })
-      ).json();
-      setCoverImg(coverImg);
+      let submitCoverImg: string = "";
+      if (file[0] !== undefined) {
+        const actualFile = file[0];
+        const formBody = new FormData();
 
+        formBody.append("file", actualFile);
+
+        const {
+          data: { url },
+        } = await mutateAsync(formBody);
+
+        submitCoverImg = url;
+        setCoverImg(submitCoverImg);
+      }
       createRestaurantMutation({
         variables: {
           input: {
             name,
             address,
             categoryName,
-            coverImg,
+            coverImg: submitCoverImg,
           },
         },
       });
     } catch (e) {
       console.error(e);
     }
-  };
+  }, [mutateAsync]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-3/4">
@@ -134,10 +146,13 @@ const RestaurantCreateForm: React.FC = memo(() => {
       <Button
         canClick={isValid}
         actionText="Add Restaurant"
-        loading={uploading || loading}
+        loading={uploadStatus === "loading" || loading}
       />
       {data?.createRestaurant.error && (
         <FormError errorMessage={data.createRestaurant.error} />
+      )}
+      {uploadStatus === "error" && (
+        <FormError errorMessage="Can't upload cover image" />
       )}
     </form>
   );
