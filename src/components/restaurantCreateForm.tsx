@@ -105,7 +105,7 @@ const RestaurantCreateForm: React.FC = memo(() => {
     } catch (e) {
       console.error(e);
     }
-  }, [mutateAsync]);
+  }, [mutateAsync, createRestaurantMutation, getValues]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-3/4">
