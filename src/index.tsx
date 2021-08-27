@@ -4,6 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
 
 import { client } from "./apollo";
 import { App } from "./components/app";
@@ -16,7 +17,9 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <RecoilRoot>
+            <App />
+          </RecoilRoot>
         </QueryClientProvider>
       </HelmetProvider>
     </ApolloProvider>

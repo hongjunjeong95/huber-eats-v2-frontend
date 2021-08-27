@@ -17,7 +17,7 @@ interface IDishProps {
 const OwnerDish: React.FC<IDishProps> = memo(
   ({ name, description, photo, price, restaurantId, dishId }) => {
     const slicedDescription =
-      description.length > 50
+      description && description.length > 50
         ? `${description.substring(0, 50)}...`
         : description;
     const onCompleted = (data: DeleteDish) => {
@@ -76,7 +76,7 @@ const OwnerDish: React.FC<IDishProps> = memo(
     };
     return (
       <div className={`${data ? "hidden" : "block"}`}>
-        <img src={photo} alt="" className="w-full h-1/3" />
+        <img src={photo} alt="" className="w-full h-1/2" />
         <div className="flex px-10 py-3 border-2">
           <div className="flex flex-col">
             <div className="mb-4 flex items-center">

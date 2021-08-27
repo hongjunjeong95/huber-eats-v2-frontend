@@ -7,6 +7,7 @@ import CustomerRestaurant from "../pages/customer/customer-restaurant";
 import Restaurants from "../pages/customer/restaurants";
 import DeliverDashboard from "../pages/driver/dashboard";
 import AddMenu from "../pages/owner/add-menu";
+import AddMenuOption from "../pages/owner/add-menu-option";
 import AddRestaurant from "../pages/owner/add-restaurant";
 import EditMenu from "../pages/owner/edit-menu";
 import UpdateRestaurant from "../pages/owner/edit-restaurant";
@@ -22,6 +23,7 @@ const ownerRoutes = [
   { path: "/add-restaurant", component: <AddRestaurant /> },
   { path: "/edit-restaurant", component: <UpdateRestaurant /> },
   { path: "/add-menu", component: <AddMenu /> },
+  { path: "/add-menu-options", component: <AddMenuOption /> },
   { path: "/edit-menu", component: <EditMenu /> },
 ];
 
