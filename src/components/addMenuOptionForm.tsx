@@ -49,7 +49,7 @@ const AddMenuOptionForm: React.FC = memo(() => {
     register,
     getValues,
     handleSubmit,
-    formState: { isValid, errors: formErrors },
+    formState: { isValid },
   } = useForm<IFormProps>({
     mode: "onChange",
   });
@@ -59,8 +59,6 @@ const AddMenuOptionForm: React.FC = memo(() => {
       createDish: { ok },
     } = data;
     if (ok) {
-      const {} = getValues();
-
       client.writeFragment({
         id: `Restaurant:${restaurantId}`,
         fragment: gql`
@@ -96,20 +94,13 @@ const AddMenuOptionForm: React.FC = memo(() => {
     }
   };
 
-  const [createDishMutation, { data }] = useCreateDishMutation(onCompleted);
+  const [createDishMutation] = useCreateDishMutation(onCompleted);
 
   const onSubmit = async () => {
     try {
       setUploading(true);
 
       const { ...rest } = getValues();
-      // options.forEach(option=>{
-      //   option.name
-      // })
-      // const optionObjects = options.map((theId) => ({
-      //   name: rest[`${theId}-optionName`],
-      //   extra: +rest[`${theId}-optionExtra`],
-      // }));
 
       const submittedOptionObjects = options.map((option) => ({
         name: rest[`${option.id}-optionName`],
@@ -123,21 +114,23 @@ const AddMenuOptionForm: React.FC = memo(() => {
 
       const formBody = new FormData();
       formBody.append("file", dishFile);
-      const { url } = await (
-        await fetch("http://localhost:4000/uploads/", {
-          method: "POST",
-          body: formBody,
-        })
-      ).json();
 
-      setCoverImg(url);
+      if (dishFile.name !== "") {
+        const { url } = await (
+          await fetch("http://localhost:4000/uploads/", {
+            method: "POST",
+            body: formBody,
+          })
+        ).json();
+        setCoverImg(url);
+      }
 
       createDishMutation({
         variables: {
           input: {
             name: dishName,
             price: +dishPrice,
-            photo: url,
+            photo: coverImg,
             description: dishDescription,
             restaurantId: +restaurantId,
             options: optionObjects,
